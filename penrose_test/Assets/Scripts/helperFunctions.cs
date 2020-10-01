@@ -14,5 +14,7 @@ namespace helperFunctions
 
             return height;
         }
+
+\
     }
 }

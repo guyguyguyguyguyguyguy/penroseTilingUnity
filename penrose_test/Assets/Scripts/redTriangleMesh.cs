@@ -40,6 +40,10 @@ public class redTriangleMesh : triangleMesh
         Color newColour;
         ColorUtility.TryParseHtmlString("#FF5958", out newColour);
         rend.material.SetColor("_Color", newColour);
+
+        outlineL = _drawLine(worldVertex1, worldVertex3, Color.black, "outlineL");
+        outlineR = _drawLine(worldVertex3, worldVertex2, Color.black, "outlineR");
+
     }
 
     protected override void Update()
@@ -49,6 +53,8 @@ public class redTriangleMesh : triangleMesh
             deflate();
 
             Destroy(gameObject);
+            Destroy(outlineL);
+            Destroy(outlineR);
         }
     }
 
@@ -59,10 +65,10 @@ public class redTriangleMesh : triangleMesh
         Vector3 C = worldVertex2;
         Vector3 P = A + (B - A) / GOLDENRATIO;
         
-        if(Label == "fromBlue")
+        if(Label == "mirror")
         {
-            _deflate(typeof(redTriangleMesh), P, B, C, 1, 2, 0, "fromBlue");
-            _deflate(typeof(blueTriangleMesh), C, A, P, 1, 2, 0, "fromBlue");
+            _deflate(typeof(redTriangleMesh), P, B, C, 1, 2, 0, "mirror");
+            _deflate(typeof(blueTriangleMesh), C, A, P, 1, 2, 0, "mirror");
         }
         else
         {

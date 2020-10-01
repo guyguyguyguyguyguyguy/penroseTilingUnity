@@ -37,11 +37,14 @@ public class blueTriangleMesh : triangleMesh
         awesomeMesh.vertices = verticies;
         awesomeMesh.triangles = triangles;
 
-
         rend = GetComponent<Renderer>();
         Color newColour;
         ColorUtility.TryParseHtmlString("#6667FF", out newColour);
         rend.material.SetColor("_Color", newColour);
+
+
+        outlineL = _drawLine(worldVertex1, worldVertex3, Color.black, "outlineL");
+        outlineR = _drawLine(worldVertex3, worldVertex2, Color.black, "outlineR");
     }
 
     protected override  void Update()
@@ -51,6 +54,8 @@ public class blueTriangleMesh : triangleMesh
             deflate();
 
             Destroy(gameObject);
+            Destroy(outlineL);
+            Destroy(outlineR);
         }
     }
 
@@ -62,17 +67,17 @@ public class blueTriangleMesh : triangleMesh
         Vector3 Q = B + (A - B) / GOLDENRATIO;
         Vector3 R = B + (C - B) / GOLDENRATIO;
 
-        if(Label == "fromBlue")
+        if(Label == "mirror")
         {
         _deflate(typeof(blueTriangleMesh), R, B, Q);
         _deflate(typeof(redTriangleMesh), Q, A, R);
-        _deflate(typeof(blueTriangleMesh), C, A, R, 1, 2, 0, "fromBlue");
+        _deflate(typeof(blueTriangleMesh), C, A, R, 1, 2, 0, "mirror");
         }
 
         else
         {
-        _deflate(typeof(blueTriangleMesh), R, B, Q, 1, 2, 0, "fromBlue");
-        _deflate(typeof(redTriangleMesh), Q, A, R, 1, 2, 0, "fromBlue");
+        _deflate(typeof(blueTriangleMesh), R, B, Q, 1, 2, 0, "mirror");
+        _deflate(typeof(redTriangleMesh), Q, A, R, 1, 2, 0, "mirror");
         _deflate(typeof(blueTriangleMesh), C, A, R);
         }
     }

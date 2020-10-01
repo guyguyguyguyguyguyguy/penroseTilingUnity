@@ -14,6 +14,7 @@ public class triangleMesh : MonoBehaviour
 
     public string Name; 
     public string Label;
+    public Vector3 centre;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
     public Vector3 worldVertex3;
@@ -23,6 +24,9 @@ public class triangleMesh : MonoBehaviour
 
     protected Mesh awesomeMesh;
     protected Renderer rend; 
+    
+    protected GameObject outlineL; 
+    protected GameObject outlineR; 
 
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3)
@@ -88,4 +92,26 @@ public class triangleMesh : MonoBehaviour
   
         obj.SetActive(true);
     }
+
+
+    protected GameObject _drawLine(Vector3 start, Vector3 end, Color color, string name)
+    {   
+        GameObject outline = new GameObject();
+        outline.name = name;
+        outline.transform.position = start;
+        outline.AddComponent<LineRenderer>();
+        LineRenderer lr = outline.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Standard"));
+        lr.sortingLayerName = "Foreground";
+        lr.material.color = color;
+        lr.startWidth = 0.043f;
+        lr.endWidth = 0.043f;
+        start[2] = -10f;
+        end[2] = -10f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+
+        return outline;
+    }
+
 }
