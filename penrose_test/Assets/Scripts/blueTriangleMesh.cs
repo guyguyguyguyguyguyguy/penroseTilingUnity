@@ -67,18 +67,18 @@ public class blueTriangleMesh : triangleMesh
         Vector3 Q = B + (A - B) / GOLDENRATIO;
         Vector3 R = B + (C - B) / GOLDENRATIO;
 
-        if(Label == "mirror")
+        if(mirror)
         {
-        _deflate(typeof(blueTriangleMesh), R, B, Q);
-        _deflate(typeof(redTriangleMesh), Q, A, R);
-        _deflate(typeof(blueTriangleMesh), C, A, R, 1, 2, 0, "mirror");
+        _deflate(typeof(blueTriangleMesh), R, B, Q, false);
+        _deflate(typeof(redTriangleMesh), Q, A, R, false);
+        _deflate(typeof(blueTriangleMesh), C, A, R, true);
         }
 
         else
         {
-        _deflate(typeof(blueTriangleMesh), R, B, Q, 1, 2, 0, "mirror");
-        _deflate(typeof(redTriangleMesh), Q, A, R, 1, 2, 0, "mirror");
-        _deflate(typeof(blueTriangleMesh), C, A, R);
+        _deflate(typeof(blueTriangleMesh), R, B, Q, true);
+        _deflate(typeof(redTriangleMesh), Q, A, R, true);
+        _deflate(typeof(blueTriangleMesh), C, A, R, false);
         }
     }
 

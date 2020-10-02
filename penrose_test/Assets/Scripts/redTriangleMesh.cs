@@ -65,16 +65,30 @@ public class redTriangleMesh : triangleMesh
         Vector3 C = worldVertex2;
         Vector3 P = A + (B - A) / GOLDENRATIO;
         
-        if(Label == "mirror")
+        if(mirror)
         {
-            _deflate(typeof(redTriangleMesh), P, B, C, 1, 2, 0, "mirror");
-            _deflate(typeof(blueTriangleMesh), C, A, P, 1, 2, 0, "mirror");
+            _deflate(typeof(redTriangleMesh), P, B, C, true);
+            _deflate(typeof(blueTriangleMesh), C, A, P,true);
         }
         else
         {
-            _deflate(typeof(redTriangleMesh), P, B, C);
-            _deflate(typeof(blueTriangleMesh), C, A, P);
+            _deflate(typeof(redTriangleMesh), P, B, C, false);
+            _deflate(typeof(blueTriangleMesh), C, A, P, false);
         }
     }
 
+    public override Vector3 thirdVertexCalc(Vector3 origin, Vector3 secondVertex)
+    {
+        Vector3 thirdVertc = Vector3.zero;
+        float AB = Vector3.Distance(origin, secondVertex);
+
+        float x = AB * Mathf.Cos(36 * Mathf.PI/180) + origin[0];
+        float y = AB * Mathf.Sin(36 * Mathf.PI/180) + origin[1];
+
+        thirdVertc[0] = x;
+        thirdVertc[1] = y;
+        thirdVertc[2] = -10f;
+
+        return thirdVertc;
+    }
 }

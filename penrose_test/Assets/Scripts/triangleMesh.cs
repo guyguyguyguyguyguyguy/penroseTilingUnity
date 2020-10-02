@@ -13,7 +13,7 @@ public class triangleMesh : MonoBehaviour
 
 
     public string Name; 
-    public string Label;
+    public bool mirror;
     public Vector3 centre;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
@@ -29,14 +29,21 @@ public class triangleMesh : MonoBehaviour
     protected GameObject outlineR; 
 
 
-    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3)
-    {
-        Init(ver1, ver2, ver3, 0, 2, 1, null);
+    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage)
+    {   
+        if(mirrorImage)
+        {
+            Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage);
+        }
+        else
+        {
+            Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage);
+        }
     }
 
-    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, int t1, int t2, int t3, string label)
+    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, int t1, int t2, int t3, bool mirrorImage)
     {
-        Label = label;
+        mirror = mirrorImage;
 
         vertex1 = ver1;
         vertex2 = ver2;
@@ -46,6 +53,8 @@ public class triangleMesh : MonoBehaviour
         triangles[0] = t1;
         triangles[1] = t2;
         triangles[2] = t3;
+
+        Manager.allObjects.Add(this);
 
     }
 
@@ -72,13 +81,13 @@ public class triangleMesh : MonoBehaviour
 
     }
 
-    public void _deflate(System.Type typeTri, Vector3 v1, Vector3 v2, Vector3 v3)
-    {  
-        _deflate(typeTri, v1, v2, v3, 0, 2, 1, null);
-    }
+    // public void _deflate(System.Type typeTri, Vector3 v1, Vector3 v2, Vector3 v3)
+    // {  
+    //     _deflate(typeTri, v1, v2, v3, mirror);
+    // }
 
 
-    public void _deflate(System.Type typeTri, Vector3 v1, Vector3 v2, Vector3 v3, int t1, int t2, int t3, string label)
+    public void _deflate(System.Type typeTri, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage)
     {  
         Material m_Material = GetComponent<Renderer>().material;
 
@@ -88,7 +97,7 @@ public class triangleMesh : MonoBehaviour
         MeshRenderer objRend = obj.AddComponent<MeshRenderer>();
         objRend.material = m_Material;
         triangleMesh newTriangleMesh = (triangleMesh)obj.AddComponent(typeTri);
-        newTriangleMesh.Init(v1, v2, v3, t1, t2, t3, label);
+        newTriangleMesh.Init(v1, v2, v3, mirrorImage);
   
         obj.SetActive(true);
     }
@@ -97,6 +106,7 @@ public class triangleMesh : MonoBehaviour
     protected GameObject _drawLine(Vector3 start, Vector3 end, Color color, string name)
     {   
         GameObject outline = new GameObject();
+        outline.transform.SetParent(this.transform);
         outline.name = name;
         outline.transform.position = start;
         outline.AddComponent<LineRenderer>();
@@ -104,8 +114,8 @@ public class triangleMesh : MonoBehaviour
         lr.material = new Material(Shader.Find("Standard"));
         lr.sortingLayerName = "Foreground";
         lr.material.color = color;
-        lr.startWidth = 0.043f;
-        lr.endWidth = 0.043f;
+        lr.startWidth = 0.034f;
+        lr.endWidth = 0.034f;
         start[2] = -10f;
         end[2] = -10f;
         lr.SetPosition(0, start);
@@ -114,4 +124,9 @@ public class triangleMesh : MonoBehaviour
         return outline;
     }
 
+    public virtual Vector3 thirdVertexCalc(Vector3 origin, Vector3 secondVertex)
+    {
+
+        return Vector3.zero;
+    }
 }

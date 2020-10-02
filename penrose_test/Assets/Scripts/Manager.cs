@@ -11,17 +11,18 @@ public class Manager : MonoBehaviour
     private static float REDTRIANGLEHEIGHT = helperFunctionsClass.heronsFormula(GOLDENRATIO, 1, GOLDENRATIO);
     private static float BLUETRIANGLEHEIGHT = helperFunctionsClass.heronsFormula(1, GOLDENRATIO, 1);
 
+    // not sure where to keep this or at every update use  triangleMesh[] allObjects = UnityEngine.Object.FindObjectsOfType<triangleMesh>();
+    public static List<triangleMesh> allObjects = new List<triangleMesh>();
+
 
     void Start()
     {
-        Debug.Log(REDTRIANGLEHEIGHT);
+        // Debug.Log(REDTRIANGLEHEIGHT);
     }
 
     void Update()
     {   
-        triangleMesh[] allObjects = UnityEngine.Object.FindObjectsOfType<triangleMesh>();
-
-        if((allObjects.Length != 0))
+        if((allObjects.Count != 0))
         {
             if (Input.GetMouseButtonDown(0)) 
             {  
@@ -30,12 +31,38 @@ public class Manager : MonoBehaviour
                 
                 if(closestTriangle.Item2 < 0.9f)
                 {   
-                    Tuple<Vector3[], string> snapResult = getSnapCoords(closestTriangle.Item1, closestTriangle.Item3, "red", mouseClickCoor);
 
+                    // Closest triangle does not update
+                    // Also drawing is all out of whack (possible use flip will be better than chaning way it is drawn)
+
+                    Vector3 distance = mouseClickCoor - closestTriangle.Item1.centre;
+                    if(distance[1] < 0)
+                    {   
+                        Vector3[] verticies = closestTriangle.Item1.verticies;
+                        verticies[2][2] -= 2*REDTRIANGLEHEIGHT; 
+
+                        instantiateRedTriangle(verticies, mouseClickCoor, !closestTriangle.Item1.mirror, 180);
+                    }
+
+                    else
+                    {
+                        if(distance[0] > 0)
+                        {
+                            string side = "R";
+                            instantiateRedTriangle(closestTriangle.Item1.verticies, mouseClickCoor, !closestTriangle.Item1.mirror, 36);
+                        }
+
+                        else if(distance[0] <= 0)
+                        {
+                            string side = "L";
+                            instantiateRedTriangle(closestTriangle.Item1.verticies, mouseClickCoor, !closestTriangle.Item1.mirror, -36);
+                        }
+
+                    }
                 }
                 else
                 {
-                    instantiateRedTriangle(mouseClickCoor);
+                    instantiateRedTriangle(mouseClickCoor, false);
                 }
             }    
 
@@ -44,13 +71,15 @@ public class Manager : MonoBehaviour
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var closestTriangle = getClosestTriangle(allObjects, mouseClickCoor);
                 if(closestTriangle.Item2 < 0.9f)
-                {
-                    Tuple<Vector3[], string> snapResult = getSnapCoords(closestTriangle.Item1, closestTriangle.Item3, "blue", mouseClickCoor);
-                    instantiateBlueTriangle(snapResult.Item1, mouseClickCoor, snapResult.Item2);
+                {   
+
+                    // FIX!
+                    // Tuple<Vector3[], bool> snapResult = getSnapCoords(closestTriangle.Item1, closestTriangle.Item3, "blue", mouseClickCoor);
+                    // instantiateBlueTriangle(snapResult.Item1, mouseClickCoor, false);
                 }
                 else
                 {
-                    instantiateBlueTriangle(mouseClickCoor);
+                    instantiateBlueTriangle(mouseClickCoor, false);
                 }
             }
         }
@@ -59,17 +88,17 @@ public class Manager : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) 
             {  
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                instantiateRedTriangle(mouseClickCoor);
+                instantiateRedTriangle(mouseClickCoor, false);
             }
             else if (Input.GetMouseButtonDown(1)) 
             {  
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                instantiateBlueTriangle(mouseClickCoor);
+                instantiateBlueTriangle(mouseClickCoor, false);
             } 
         }
     }
 
-    void instantiateRedTriangle(Vector3 clickPos)
+    void instantiateRedTriangle(Vector3 clickPos, bool mirrorImage)
     {   
 
         float halfHeightRed = REDTRIANGLEHEIGHT/2;
@@ -86,11 +115,11 @@ public class Manager : MonoBehaviour
         vertex3[1] += halfHeightRed;
 
         Vector3[] verticies = new [] {vertex1, vertex2, vertex3};
-        instantiateRedTriangle(verticies, clickPos, null, 0, 2, 1);
+        instantiateRedTriangle(verticies, clickPos, mirrorImage, 0);
     }
 
 
-    void instantiateBlueTriangle(Vector3 clickPos)
+    void instantiateBlueTriangle(Vector3 clickPos, bool mirrorImage)
     {   
 
         float halfHeightBlue = BLUETRIANGLEHEIGHT/2;
@@ -107,15 +136,18 @@ public class Manager : MonoBehaviour
         vertex3[1] += halfHeightBlue;
 
         Vector3[] verticies = new [] {vertex1, vertex2, vertex3};
-        instantiateBlueTriangle(verticies, clickPos, null);
+        instantiateBlueTriangle(verticies, clickPos, mirrorImage);
     }
 
 
-    void instantiateRedTriangle(Vector3[] verticies, Vector3 clickPos, string mirror, int t1, int t2, int t3)
+    void instantiateRedTriangle(Vector3[] verticies, Vector3 clickPos, bool mirrorImage, float angle)
     {   
         Vector3 vertex1 = verticies[0];
         Vector3 vertex2 = verticies[1];
         Vector3 vertex3 = verticies[2];
+
+        Debug.Log(vertex1);
+
 
         GameObject obj = new GameObject();
         obj.SetActive(false);
@@ -124,14 +156,16 @@ public class Manager : MonoBehaviour
         objRend.material = new Material(Shader.Find("Standard"));
 
         redTriangleMesh newTriangleMesh = obj.AddComponent<redTriangleMesh>();
-        newTriangleMesh.Init(vertex1, vertex2, vertex3, t1, t2, t3, mirror);
+        newTriangleMesh.Init(vertex1, vertex2, vertex3, mirrorImage);
+
+        newTriangleMesh.transform.RotateAround(vertex3, new Vector3(0, 0, 1), angle);
         newTriangleMesh.centre = clickPos;
 
         obj.SetActive(true);
     }
 
 
-    void instantiateBlueTriangle(Vector3[] verticies, Vector3 clickPos, string mirror)
+    void instantiateBlueTriangle(Vector3[] verticies, Vector3 clickPos, bool mirrorImage)
     {
         Vector3 vertex1 = verticies[0];
         Vector3 vertex2 = verticies[1];
@@ -144,15 +178,14 @@ public class Manager : MonoBehaviour
         objRend.material = new Material(Shader.Find("Standard"));
 
         blueTriangleMesh newTriangleMesh = obj.AddComponent<blueTriangleMesh>();
-        newTriangleMesh.Init(vertex1, vertex2, vertex3);
+        newTriangleMesh.Init(vertex1, vertex2, vertex3, mirrorImage);
         newTriangleMesh.centre = clickPos;
-        newTriangleMesh.Label = mirror;
 
         obj.SetActive(true);
     }
 
 
-    Tuple<triangleMesh, float, Vector3[]> getClosestTriangle(triangleMesh[] triangles, Vector3 mousePos)
+    Tuple<triangleMesh, float> getClosestTriangle(List<triangleMesh> triangles, Vector3 mousePos)
     {
         triangleMesh closest = null;
         float minDist = Mathf.Infinity;
@@ -166,77 +199,6 @@ public class Manager : MonoBehaviour
             }
         }
 
-        float minDistVer = Mathf.Infinity;
-        Vector3 nearestVertex = Vector3.zero;
-        Vector3[] nearestVerticies = new Vector3[2];
-        foreach (Vector3 v in closest.verticies)
-        {
-            float dist = Vector3.Distance(mousePos, v);
-            if(dist < minDistVer)
-            {
-                minDistVer = dist;
-                nearestVertex = v;
-            }
-        }
-
-        nearestVerticies[0] = nearestVertex;
-        nearestVerticies[1] = closest.verticies[2];
-
-        return new Tuple<triangleMesh, float, Vector3[]>(closest, minDist, nearestVerticies);
+        return new Tuple<triangleMesh, float>(closest, minDist);
     }   
-
-    Tuple<Vector3[], string> getSnapCoords(triangleMesh closeTriangle, Vector3[] nearestEdges, string colour, Vector3 mousePos)
-    {   
-        
-        // return the verticies of the new object based on closest triangle
-
-        Vector3[] snapVerticies = new Vector3[3];
-        string mirror = null;
-
-        switch(colour)
-        {
-            case "blue" when closeTriangle.name == "redTriangle":
-                
-
-
-                break;
-            
-            case "blue" when closeTriangle.name == "blueTriangle":
-
-                break;
-
-            case "red" when closeTriangle.name == "redTriangle":
-
-                if(closeTriangle.Label == "mirror")
-                {   
-
-                }
-                else
-                {   
-                    float x = 0;
-                    float y = 0;
-                    Vector3 newVertex = new Vector3 (x, y, -10f); 
-                    newVertex += nearestEdges[0];
-
-                    snapVerticies[1] = newVertex;
-                    snapVerticies[0] = nearestEdges[0];
-                    snapVerticies[2] = nearestEdges[1];
-
-                    Debug.Log(newVertex);
-                    Debug.Log(nearestEdges[0]);
-                    Debug.Log(nearestEdges[1]);
-                    mirror = "mirror";
-
-                    instantiateRedTriangle(snapVerticies, mousePos, mirror, 1, 2, 0);
-                }
-
-                break;
-
-            case "red" when closeTriangle.name == "blueTriangle":
-
-                break;
-        }
-
-        return new Tuple<Vector3[], string> (snapVerticies, mirror);
-    }
 }
