@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class triangleMesh : MonoBehaviour
 {
+
+    public int _id;
+
+    protected float height;
+
     protected static float GOLDENRATIO = (1 + Mathf.Sqrt(5))/2; 
     protected Vector3 vertex1;
     protected Vector3 vertex2;
@@ -14,6 +19,7 @@ public class triangleMesh : MonoBehaviour
 
     public string Name; 
     public bool mirror;
+    public float rotation;
     public Vector3 centre;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
@@ -21,6 +27,7 @@ public class triangleMesh : MonoBehaviour
 
     public Vector3[] verticies;
     public int[] triangles;
+    public Vector3[] worldVerticies;
 
     protected Mesh awesomeMesh;
     protected Renderer rend; 
@@ -29,15 +36,29 @@ public class triangleMesh : MonoBehaviour
     protected GameObject outlineR; 
 
 
-    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage)
+    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, bool snap)
     {   
-        if(mirrorImage)
+        if(!snap)
         {
-            Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage);
+            if(mirrorImage)
+            {
+                Init(ver1, ver2, ver3, 1, 2, 0, mirrorImage);
+            }
+            else
+            {
+                Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage);
+            }
         }
         else
         {
-            Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage);
+            if(mirrorImage)
+            {
+                Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage);
+            }
+            else
+            {
+                Init(ver2, ver1, ver3, 0, 2, 1, mirrorImage);
+            }
         }
     }
 
@@ -97,7 +118,7 @@ public class triangleMesh : MonoBehaviour
         MeshRenderer objRend = obj.AddComponent<MeshRenderer>();
         objRend.material = m_Material;
         triangleMesh newTriangleMesh = (triangleMesh)obj.AddComponent(typeTri);
-        newTriangleMesh.Init(v1, v2, v3, mirrorImage);
+        newTriangleMesh.Init(v1, v2, v3, mirrorImage, false);
   
         obj.SetActive(true);
     }
@@ -124,9 +145,22 @@ public class triangleMesh : MonoBehaviour
         return outline;
     }
 
+    protected Vector3 centreOfTile()
+    {   
+        Vector3 centre = new Vector3();
+
+        foreach(Vector3 x in this.worldVerticies)
+        {
+            centre += x;
+        }
+
+        return centre/3;
+
+    }
+
     public virtual Vector3 thirdVertexCalc(Vector3 origin, Vector3 secondVertex)
     {
-
         return Vector3.zero;
     }
+
 }

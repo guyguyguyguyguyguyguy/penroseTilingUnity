@@ -6,6 +6,8 @@ using helperFunctions;
 public class blueTriangleMesh : triangleMesh
 {   
 
+    new private static float height = helperFunctionsClass.heronsFormula(1, GOLDENRATIO, 1);
+
     protected override void Awake()
     {
 
@@ -20,6 +22,13 @@ public class blueTriangleMesh : triangleMesh
         worldVertex2 = transform.TransformPoint(vertex2);
         worldVertex3 = transform.TransformPoint(vertex3);
 
+        worldVerticies = new Vector3[3];
+        worldVerticies[0] = worldVertex1;
+        worldVerticies[1] = worldVertex2;
+        worldVerticies[2] = worldVertex3;
+
+        this.centre = centreOfTile();
+
         vertex1[2] = -10f;
         vertex2[2] = -10f;
         vertex3[2] = -10f;
@@ -28,7 +37,6 @@ public class blueTriangleMesh : triangleMesh
         verticies[0] = vertex1;
         verticies[1] = vertex2;
         verticies[2] = vertex3;
-
 
 
         awesomeMesh = new Mesh();

@@ -4,7 +4,9 @@ using UnityEngine;
 using helperFunctions;
 
 public class redTriangleMesh : triangleMesh
-{
+{   
+
+    new private static float height = helperFunctionsClass.heronsFormula(1, 1/GOLDENRATIO, 1);
 
     protected override void Awake()
     {
@@ -19,6 +21,14 @@ public class redTriangleMesh : triangleMesh
         worldVertex1 = transform.TransformPoint(vertex1);
         worldVertex2 = transform.TransformPoint(vertex2);
         worldVertex3 = transform.TransformPoint(vertex3);
+
+        worldVerticies = new Vector3[3];
+        worldVerticies[0] = worldVertex1;
+        worldVerticies[1] = worldVertex2;
+        worldVerticies[2] = worldVertex3;
+
+        this.centre = centreOfTile();
+        
 
         vertex1[2] = -10f;
         vertex2[2] = -10f;
