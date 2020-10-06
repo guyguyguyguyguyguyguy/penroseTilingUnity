@@ -8,9 +8,14 @@ namespace helperFunctions
     {
         private static float GOLDENRATIO = (1 + Mathf.Sqrt(5))/2; 
 
-        private static float REDTRIANGLEHEIGHT = helperFunctionsClass.heronsFormula(1, 1/GOLDENRATIO, 1);
-        private static float BLUETRIANGLEHEIGHT = helperFunctionsClass.heronsFormula(1, GOLDENRATIO, 1);
-        
+        public static float redBase = 1/(GOLDENRATIO * GOLDENRATIO * GOLDENRATIO * GOLDENRATIO);
+        public static float redSides = GOLDENRATIO/ (GOLDENRATIO * GOLDENRATIO * GOLDENRATIO * GOLDENRATIO);
+        public static float redHieght = helperFunctionsClass.heronsFormula(redSides, redBase, redSides);
+
+        public static float blueBase = (GOLDENRATIO * GOLDENRATIO)/ (GOLDENRATIO * GOLDENRATIO * GOLDENRATIO * GOLDENRATIO);
+        public static float blueSides = GOLDENRATIO/ (GOLDENRATIO * GOLDENRATIO * GOLDENRATIO * GOLDENRATIO);
+        public static float blueHeight = helperFunctionsClass.heronsFormula(blueSides, blueBase, blueSides);
+
         
         public static float heronsFormula(float a, float b, float c)
         {
@@ -27,9 +32,9 @@ namespace helperFunctions
 
             translatedVerticies[2] = pivotVertex;
 
-            translatedVerticies[0] = pivotVertex - new Vector3((1/GOLDENRATIO)/2, REDTRIANGLEHEIGHT); 
+            translatedVerticies[0] = pivotVertex - new Vector3(redBase/2, redHieght); 
 
-            translatedVerticies[1] = pivotVertex + new Vector3((1/GOLDENRATIO)/2, - REDTRIANGLEHEIGHT); 
+            translatedVerticies[1] = pivotVertex + new Vector3(redBase/2, - redHieght); 
 
             return translatedVerticies;
 
@@ -41,9 +46,9 @@ namespace helperFunctions
 
             translatedVerticies[2] = pivotVertex;
 
-            translatedVerticies[0] = pivotVertex - new Vector3(GOLDENRATIO/2, BLUETRIANGLEHEIGHT);
+            translatedVerticies[0] = pivotVertex - new Vector3(blueBase/2, blueHeight);
 
-            translatedVerticies[1] = pivotVertex + new Vector3(GOLDENRATIO/2,  -BLUETRIANGLEHEIGHT);
+            translatedVerticies[1] = pivotVertex + new Vector3(blueBase/2,  - blueHeight);
 
             return translatedVerticies;
         }

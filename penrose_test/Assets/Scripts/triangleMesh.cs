@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using helperFunctions;
 
 public class triangleMesh : MonoBehaviour
 {
+    protected static float GOLDENRATIO = (1 + Mathf.Sqrt(5))/2; 
 
     public int _id;
-
     protected float height;
 
-    protected static float GOLDENRATIO = (1 + Mathf.Sqrt(5))/2; 
+    protected int deflationStep = 1;
+
     protected Vector3 vertex1;
     protected Vector3 vertex2;
     protected static float x3;
@@ -35,6 +37,11 @@ public class triangleMesh : MonoBehaviour
     protected GameObject outlineL; 
     protected GameObject outlineR; 
 
+
+    void Awake()
+    {
+
+    }
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, bool snap)
     {   
@@ -78,11 +85,6 @@ public class triangleMesh : MonoBehaviour
         Manager.allObjects.Add(this);
 
     }
-
-    protected virtual void Awake()
-    {
-
-    }
     
     
     // Start is called before the first frame update
@@ -110,10 +112,13 @@ public class triangleMesh : MonoBehaviour
 
     public void _deflate(System.Type typeTri, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage)
     {  
+        this.deflationStep +=1;
+
         Material m_Material = GetComponent<Renderer>().material;
 
         GameObject obj = new GameObject();
         obj.SetActive(false);
+
         MeshFilter objFil= obj.AddComponent<MeshFilter>();
         MeshRenderer objRend = obj.AddComponent<MeshRenderer>();
         objRend.material = m_Material;
@@ -135,8 +140,10 @@ public class triangleMesh : MonoBehaviour
         lr.material = new Material(Shader.Find("Standard"));
         lr.sortingLayerName = "Foreground";
         lr.material.color = color;
-        lr.startWidth = 0.034f;
-        lr.endWidth = 0.034f;
+        // lr.startWidth = 0.034f /(Mathf.Exp(this.deflationStep));
+        // lr.endWidth = 0.034f / (Mathf.Exp(this.deflationStep));
+        lr.startWidth = 0.43f * 0.034f;
+        lr.endWidth = 0.43f * 0.034f;
         start[2] = -10f;
         end[2] = -10f;
         lr.SetPosition(0, start);

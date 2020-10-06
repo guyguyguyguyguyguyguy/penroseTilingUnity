@@ -6,14 +6,11 @@ using helperFunctions;
 public class redTriangleMesh : triangleMesh
 {   
 
-    new private static float height = helperFunctionsClass.heronsFormula(1, 1/GOLDENRATIO, 1);
-
-    protected override void Awake()
+    void Awake()
     {
 
     }
 
-    // Start is called before the first frame update
     protected override void Start()
     {   
         this.name = "redTriangle";
@@ -46,10 +43,33 @@ public class redTriangleMesh : triangleMesh
         awesomeMesh.vertices = verticies;
         awesomeMesh.triangles = triangles;
 
+
         rend = GetComponent<Renderer>();
         Color newColour;
         ColorUtility.TryParseHtmlString("#FF5958", out newColour);
         rend.material.SetColor("_Color", newColour);
+
+
+        // Trying and failing to get one single renderer for red and blue triangles
+
+        // for(int i = 0; i < this.triangles.Length; ++i)
+        // {
+        //     this.triangles[i] += ((this._id-2) *3);
+        // }
+
+        // var awesomeMesh = GameObject.Find("redDrawer").GetComponent<MeshFilter>().mesh;
+        // Vector3[] z = new Vector3[awesomeMesh.vertices.Length + verticies.Length];
+        // awesomeMesh.vertices.CopyTo(z, 0);
+        // verticies.CopyTo(z, awesomeMesh.vertices.Length);
+        // awesomeMesh.vertices = z;
+
+        // int[] y = new int[awesomeMesh.triangles.Length + this.triangles.Length];
+        // awesomeMesh.triangles.CopyTo(y, 0);
+        // this.triangles.CopyTo(y, awesomeMesh.triangles.Length);
+        // awesomeMesh.triangles = y;
+        // Debug.Log(this._id);
+
+
 
         outlineL = _drawLine(worldVertex1, worldVertex3, Color.black, "outlineL");
         outlineR = _drawLine(worldVertex3, worldVertex2, Color.black, "outlineR");
@@ -65,14 +85,17 @@ public class redTriangleMesh : triangleMesh
             Destroy(gameObject);
             Destroy(outlineL);
             Destroy(outlineR);
+
+            Manager.allObjects.Remove(this);
+            
         }
     }
 
     public override void deflate()
     {   
-        Vector3 A = worldVertex3;
-        Vector3 B = worldVertex1; 
-        Vector3 C = worldVertex2;
+        Vector3 A = worldVertex3 * GOLDENRATIO;
+        Vector3 B = worldVertex1 * GOLDENRATIO; 
+        Vector3 C = worldVertex2 * GOLDENRATIO;
         Vector3 P = A + (B - A) / GOLDENRATIO;
         
         if(mirror)

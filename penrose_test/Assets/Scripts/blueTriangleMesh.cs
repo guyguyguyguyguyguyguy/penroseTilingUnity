@@ -6,14 +6,6 @@ using helperFunctions;
 public class blueTriangleMesh : triangleMesh
 {   
 
-    new private static float height = helperFunctionsClass.heronsFormula(1, GOLDENRATIO, 1);
-
-    protected override void Awake()
-    {
-
-    }
-
-    // Start is called before the first frame update
     protected override void Start()
     {   
         this.name = "blueTriangle"; 
@@ -38,7 +30,6 @@ public class blueTriangleMesh : triangleMesh
         verticies[1] = vertex2;
         verticies[2] = vertex3;
 
-
         awesomeMesh = new Mesh();
         GetComponent<MeshFilter>().sharedMesh = awesomeMesh;
         awesomeMesh.Clear();
@@ -49,6 +40,8 @@ public class blueTriangleMesh : triangleMesh
         Color newColour;
         ColorUtility.TryParseHtmlString("#6667FF", out newColour);
         rend.material.SetColor("_Color", newColour);
+
+        
 
 
         outlineL = _drawLine(worldVertex1, worldVertex3, Color.black, "outlineL");
@@ -64,14 +57,16 @@ public class blueTriangleMesh : triangleMesh
             Destroy(gameObject);
             Destroy(outlineL);
             Destroy(outlineR);
+
+            Manager.allObjects.Remove(this);
         }
     }
 
     public override void deflate()
     {   
-        Vector3 C = worldVertex2;
-        Vector3 B = worldVertex1; 
-        Vector3 A = worldVertex3;
+        Vector3 C = worldVertex2 * GOLDENRATIO;
+        Vector3 B = worldVertex1 * GOLDENRATIO; 
+        Vector3 A = worldVertex3 * GOLDENRATIO;
         Vector3 Q = B + (A - B) / GOLDENRATIO;
         Vector3 R = B + (C - B) / GOLDENRATIO;
 
