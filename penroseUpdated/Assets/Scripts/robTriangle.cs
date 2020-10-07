@@ -163,17 +163,10 @@ public class robTriangle : MonoBehaviour
 
     protected void vectorsTrianglesToDrawer(System.Type typeTile, Vector3[] vertices, int[] triangles)
     {   
-        // Debug.Log("Im in vectorsTriag...whatever");
-        // Debug.Log(typeTile);
 
         if(typeTile == typeof(blueTile))
         {   
-            
-            // Debug.Log("Im in vectorsTriag...whatever blueType type");
-
             blueDrawer drawBlue = manager.blueDrawObj.GetComponent<blueDrawer>();
-            // Debug.Log(vertices);
-            // Debug.Log(triangles);
             drawBlue.addToRend(vertices, triangles);
         }
 

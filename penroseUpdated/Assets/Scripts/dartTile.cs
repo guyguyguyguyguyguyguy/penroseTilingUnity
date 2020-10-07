@@ -8,10 +8,10 @@ public class dartTile : tile
 
     public void Init(Vector3 clickPos)
     {
-        centre = clickPos;
+        centre = clickPos - new Vector3(0, 0.5f * helperFunctionsClass.blueSides);
 
-        createTile("blue", clickPos, -126, "leftTriangle");
-        createTile("blue", clickPos, 126, "rightTriangle");
+        createP2Tile("blue", clickPos, -126, "leftTriangle", false, false);
+        createP2Tile("blue", clickPos, 126, "rightTriangle", true, true);
 
     }
 

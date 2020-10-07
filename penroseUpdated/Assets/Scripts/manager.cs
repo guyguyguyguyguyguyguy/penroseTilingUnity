@@ -40,6 +40,12 @@ public class manager : MonoBehaviour
 
         kiteTile firstKite = new kiteTile();
         firstKite.Init(new Vector3(1, 0, 0));
+
+        thickRhomb firstTRhomb = new thickRhomb();
+        firstTRhomb.Init(new Vector3(2, 0, 0));
+
+        thinRhomb firstThRhomb = new thinRhomb();
+        firstThRhomb.Init(new Vector3(-1, 0));
     }
 
 

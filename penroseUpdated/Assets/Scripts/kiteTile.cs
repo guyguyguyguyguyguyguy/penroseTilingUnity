@@ -8,10 +8,10 @@ public class kiteTile : tile
 
     public void Init(Vector3 clickPos)
     {
-        centre = clickPos;
+        centre = clickPos - new Vector3(0, 0.5f *helperFunctionsClass.redSides);
 
-        createTile("red", clickPos, -18, "leftTriangle");
-        createTile("red", clickPos, 18, "rightTriangle");
+        createP2Tile("red", clickPos, -18, "leftTriangle", false, false);
+        createP2Tile("red", clickPos, 18, "rightTriangle", true, true);
     }
 
 
