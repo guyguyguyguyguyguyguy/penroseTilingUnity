@@ -41,9 +41,13 @@ public class robTriangle : MonoBehaviour
 
         this.centre = centreOfTile();
 
-        worldVertex1[2] = -10f;
-        worldVertex2[2] = -10f;
-        worldVertex3[2] = -10f;
+        worldVertex1[2] = 10f;
+        worldVertex2[2] = 10f;
+        worldVertex3[2] = 10f;
+
+        vectorsTrianglesToDrawer(this.GetType(), worldVerticies, triangles);
+
+        manager.allObjects.Add(this);
     }
 
 
@@ -91,10 +95,6 @@ public class robTriangle : MonoBehaviour
         triangles[0] = t1 + (tagNo *3);
         triangles[1] = t2 + (tagNo *3);
         triangles[2] = t3 + (tagNo*3);
-
-        vectorsTrianglesToDrawer(this.GetType(), vertices, triangles);
-
-        manager.allObjects.Add(this);
     }
 
 
@@ -115,15 +115,17 @@ public class robTriangle : MonoBehaviour
 
     }
 
-    public void _deflate(System.Type typeTile, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage)
+    public void _deflate(System.Type typeTile, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage, string name, int tagNo)
     {  
-        // this.deflationStep +=1;
+        this.deflationStep +=1;
 
-        // tile newTile = new typeTile();
-        // newTile.SetActive(false);
-        // // initiateTile = newTile.GetComponent<tile>();
-        // newTile.Init(v1, v2, v3, mirrorImage, false);
-        // newTile.SetActive(true);
+        GameObject newTileObj = new GameObject();
+        newTileObj.SetActive(false);
+        newTileObj.name = name;
+        robTriangle newTile = (robTriangle)newTileObj.AddComponent(typeTile); 
+
+        newTile.Init(v1, v2, v3, mirror, false, tagNo);
+        newTileObj.SetActive(true);
     }
 
 
@@ -136,6 +138,7 @@ public class robTriangle : MonoBehaviour
         outline.AddComponent<LineRenderer>();
         LineRenderer lr = outline.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Standard"));
+        lr.sortingOrder = 1;
         lr.sortingLayerName = "Foreground";
         lr.material.color = color;
         lr.startWidth = 0.43f * 0.034f;
@@ -176,5 +179,10 @@ public class robTriangle : MonoBehaviour
             drawRed.addToRend(vertices, triangles);
         }
 
+    }
+
+    public virtual int tagNo()
+    {
+        return 0;
     }
 }

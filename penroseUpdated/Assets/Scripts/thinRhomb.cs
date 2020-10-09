@@ -10,8 +10,8 @@ public class thinRhomb : tile
     {
         centre = clickPos;
 
-        createP3Tile("red", clickPos, 0, "topTriangle", false, false);
-        createP3Tile("red", clickPos, 180, "bottomTriangle", true, true);
+        createP3Tile("red", clickPos, 0, "topThin", false, false);
+        createP3Tile("red", clickPos, 180, "bottomThin", true, true);
     }
 
 

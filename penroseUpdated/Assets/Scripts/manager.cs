@@ -35,17 +35,21 @@ public class manager : MonoBehaviour
 
     void Start()
     {
-        dartTile firstDart = new dartTile();
-        firstDart.Init(new Vector3());
+        // Deflation works but drawing triangles does not
+        // dartTile firstDart = new dartTile();
+        // firstDart.Init(new Vector3());
 
-        kiteTile firstKite = new kiteTile();
-        firstKite.Init(new Vector3(1, 0, 0));
+        // Deflation works but triangles are not drawn
+        // kiteTile firstKite = new kiteTile();
+        // firstKite.Init(new Vector3());
 
-        thickRhomb firstTRhomb = new thickRhomb();
-        firstTRhomb.Init(new Vector3(2, 0, 0));
+        // Deflation works but triangles are not drawn
+        // thickRhomb firstTRhomb = new thickRhomb();
+        // firstTRhomb.Init(new Vector3());
 
-        thinRhomb firstThRhomb = new thinRhomb();
-        firstThRhomb.Init(new Vector3(-1, 0));
+        // Deflation works but triangles are not drawn
+        // thinRhomb firstThRhomb = new thinRhomb();
+        // firstThRhomb.Init(new Vector3());
     }
 
 

@@ -10,8 +10,8 @@ public class dartTile : tile
     {
         centre = clickPos - new Vector3(0, 0.5f * helperFunctionsClass.blueSides);
 
-        createP2Tile("blue", clickPos, -126, "leftTriangle", false, false);
-        createP2Tile("blue", clickPos, 126, "rightTriangle", true, true);
+        createP2Tile("blue", clickPos, -126, "leftDart", false, false);
+        createP2Tile("blue", clickPos, 126, "rightDart", true, true);
 
     }
 

@@ -10,8 +10,8 @@ public class thickRhomb : tile
     {
         centre = clickPos;
 
-        createP3Tile("blue", clickPos, -90, "leftTriangle", false, false);
-        createP3Tile("blue", clickPos, 90, "rightTriangle", true, true);
+        createP3Tile("blue", clickPos, -90, "leftThick", false, false);
+        createP3Tile("blue", clickPos, 90, "rightThick", true, true);
     }
 
 
