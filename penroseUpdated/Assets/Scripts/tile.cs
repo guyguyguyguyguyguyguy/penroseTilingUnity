@@ -15,7 +15,7 @@ public class tile : MonoBehaviour
 
     protected virtual void Update()
     {
-        
+
     }
 
     protected void createP2Tile(string tileType, Vector3 clickPos, float angle, string name, bool mirror, bool snap)
