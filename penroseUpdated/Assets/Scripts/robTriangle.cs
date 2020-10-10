@@ -33,7 +33,7 @@ public class robTriangle : MonoBehaviour
         worldVertex1 = transform.TransformPoint(vertex1);
         worldVertex2 = transform.TransformPoint(vertex2);
         worldVertex3 = transform.TransformPoint(vertex3);
-
+    
         worldVerticies = new Vector3[3];
         worldVerticies[0] = worldVertex1;
         worldVerticies[1] = worldVertex2;
@@ -53,27 +53,15 @@ public class robTriangle : MonoBehaviour
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, bool snap, int tagNo)
     {   
-        if(!snap)
+        // Bit strange that i flip the verticies, why not just put them ver1 ver2 for mirror triangles?? Maybe I should change
+
+        if(mirrorImage)
         {
-            if(mirrorImage)
-            {
-                Init(ver1, ver2, ver3, 1, 2, 0, mirrorImage, tagNo);
-            }
-            else
-            {
-                Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage, tagNo);
-            }
+            Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage, tagNo);
         }
         else
         {
-            if(mirrorImage)
-            {
-                Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage, tagNo);
-            }
-            else
-            {
-                Init(ver2, ver1, ver3, 0, 2, 1, mirrorImage, tagNo);
-            }
+            Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage, tagNo);
         }
     }
 

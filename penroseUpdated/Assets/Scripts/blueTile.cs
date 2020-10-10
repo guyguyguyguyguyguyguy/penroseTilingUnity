@@ -8,11 +8,22 @@ using System.Text.RegularExpressions;
 public class blueTile : robTriangle
 {   
     public static int blueTag = 0;
+    string typeOfTiling;
 
     protected override void Start()
     {   
-        _drawLine(worldVertex1, worldVertex3, Color.black, "leftLine");
-        _drawLine(worldVertex2, worldVertex3, Color.black, "rightLine");
+        typeOfTiling = Regex.Match(name, @"([A-Z]\w+)").Groups[0].Value;
+
+        if(typeOfTiling == "Thin" || typeOfTiling == "Thick")
+        {
+            _drawLine(worldVertex1, worldVertex3, Color.black, "leftLine");
+            _drawLine(worldVertex2, worldVertex3, Color.black, "rightLine");
+        }
+        else if(typeOfTiling == "Kite" || typeOfTiling == "Dart")
+        {
+            _drawLine(worldVertex1, worldVertex2, Color.black, "baseLine");
+            _drawLine(worldVertex2, worldVertex3, Color.black, "rightLine");
+        }
     }
 
 
@@ -25,7 +36,9 @@ public class blueTile : robTriangle
             Destroy(gameObject);
             Destroy(outlineL);
             Destroy(outlineR);
-            blueTag--;
+
+            // Need to remove old verticies and triangles from drawer
+            // blueTag--;
 
             manager.allObjects.Remove(this);
         }
@@ -33,7 +46,7 @@ public class blueTile : robTriangle
 
     public override void deflate()
     {   
-        string typeOfTiling = Regex.Match(name, @"([A-Z]\w+)").Groups[0].Value;
+        // string typeOfTiling = Regex.Match(name, @"([A-Z]\w+)").Groups[0].Value;
         Vector3 C = worldVertex2 * helperFunctionsClass.GOLDENRATIO;
         Vector3 B = worldVertex1 * helperFunctionsClass.GOLDENRATIO; 
         Vector3 A = worldVertex3 * helperFunctionsClass.GOLDENRATIO;
@@ -55,15 +68,15 @@ public class blueTile : robTriangle
                 blueTag++;
                 _deflate(typeof(redTile), Q, A, R, false, "deflatedThick", redTile.redTag);
                 redTile.redTag++;
-                _deflate(typeof(blueTile), C, A, R, true, "deflatedThick", blueTag);
+                _deflate(typeof(blueTile), A, C, R, true, "deflatedThick", blueTag);
                 blueTag++;
             }
 
             else
             {
-                _deflate(typeof(blueTile), R, B, Q, true, "deflatedThick", blueTag);
+                _deflate(typeof(blueTile), B, R, Q, true, "deflatedThick", blueTag);
                 blueTag++;
-                _deflate(typeof(redTile), Q, A, R, true, "deflatedThick", redTile.redTag);
+                _deflate(typeof(redTile), A, Q, R, true, "deflatedThick", redTile.redTag);
                 redTile.redTag++;
                 _deflate(typeof(blueTile), C, A, R, false, "deflatedThick", blueTag);
                 blueTag++;
@@ -83,13 +96,17 @@ public class blueTile : robTriangle
             if(mirror)
             {
                 _deflate(typeof(redTile), A, P, B, false, "deflatedDart", redTile.redTag);
+                redTile.redTag++;
                 _deflate(typeof(blueTile), A, C, P, false, "deflatedDart", blueTag);
+                blueTag++;
             }
             
             else
             {
-                _deflate(typeof(redTile), A, P, B, true, "deflatedDart", redTile.redTag);
-                _deflate(typeof(blueTile), A, C, P, true, "deflatedDart", blueTag);
+                _deflate(typeof(redTile), P, A, B, true, "deflatedDart", redTile.redTag);
+                redTile.redTag++;
+                _deflate(typeof(blueTile), C, A, P, true, "deflatedDart", blueTag);
+                blueTag++;
             }
         }
 

@@ -35,21 +35,18 @@ public class manager : MonoBehaviour
 
     void Start()
     {
-        // Deflation works but drawing triangles does not
         // dartTile firstDart = new dartTile();
         // firstDart.Init(new Vector3());
 
-        // Deflation works but triangles are not drawn
+        // Gotta fix the lines after deflation, really not sure whats happening SORT!
         // kiteTile firstKite = new kiteTile();
         // firstKite.Init(new Vector3());
 
-        // Deflation works but triangles are not drawn
         // thickRhomb firstTRhomb = new thickRhomb();
         // firstTRhomb.Init(new Vector3());
 
-        // Deflation works but triangles are not drawn
-        // thinRhomb firstThRhomb = new thinRhomb();
-        // firstThRhomb.Init(new Vector3());
+        thinRhomb firstThRhomb = new thinRhomb();
+        firstThRhomb.Init(new Vector3());
     }
 
 
