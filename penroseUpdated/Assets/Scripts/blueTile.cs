@@ -62,12 +62,13 @@ public class blueTile : robTriangle
             Vector3 Q = B + (A - B) / helperFunctionsClass.GOLDENRATIO;
             Vector3 R = B + (C - B) / helperFunctionsClass.GOLDENRATIO;
 
-            if(mirror)
+            if(mirrored)
             {
                 _deflate(typeof(blueTile), R, B, Q, false, "deflatedThick", blueTag);
                 blueTag++;
                 _deflate(typeof(redTile), Q, A, R, false, "deflatedThick", redTile.redTag);
                 redTile.redTag++;
+                Debug.Log("mirror below");
                 _deflate(typeof(blueTile), A, C, R, true, "deflatedThick", blueTag);
                 blueTag++;
             }
@@ -78,6 +79,7 @@ public class blueTile : robTriangle
                 blueTag++;
                 _deflate(typeof(redTile), A, Q, R, true, "deflatedThick", redTile.redTag);
                 redTile.redTag++;
+                Debug.Log("non-mirror below");
                 _deflate(typeof(blueTile), C, A, R, false, "deflatedThick", blueTag);
                 blueTag++;
             }
@@ -93,7 +95,7 @@ public class blueTile : robTriangle
 
             Vector3 P = B + (C - B) / helperFunctionsClass.GOLDENRATIO;
 
-            if(mirror)
+            if(mirrored)
             {
                 _deflate(typeof(redTile), A, P, B, false, "deflatedDart", redTile.redTag);
                 redTile.redTag++;

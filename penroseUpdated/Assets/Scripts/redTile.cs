@@ -23,7 +23,7 @@ public class redTile : robTriangle
         else if(typeOfTiling == "Kite" || typeOfTiling == "Dart")
         {
             _drawLine(worldVertex1, worldVertex2, Color.black, "baseLine");
-            _drawLine(worldVertex1, worldVertex3, Color.black, "rightLine");
+            _drawLine(worldVertex2, worldVertex3, Color.black, "rightLine");
         }
     }
 
@@ -61,19 +61,19 @@ public class redTile : robTriangle
 
             Vector3 P = A + (B - A) / helperFunctionsClass.GOLDENRATIO;
 
-            if(mirror)
+            if(mirrored)
             {
-                _deflate(typeof(redTile), B, P, C, true, "deflatedKite", redTag);
+                _deflate(typeof(redTile), B, P, C, true, "deflatedThin", redTag);
                 redTag++;
-                _deflate(typeof(blueTile), A, C, P,true, "deflatedKite", blueTile.blueTag);
+                _deflate(typeof(blueTile), A, C, P,true, "deflatedThin", blueTile.blueTag);
                 blueTile.blueTag++;
             }
 
             else
             {
-                _deflate(typeof(redTile), P, B, C, false, "deflatedKite", redTag);
+                _deflate(typeof(redTile), P, B, C, false, "deflatedThin", redTag);
                 redTag++;
-                _deflate(typeof(blueTile), C, A, P, false, "deflatedKite", blueTile.blueTag);
+                _deflate(typeof(blueTile), C, A, P, false, "deflatedThin", blueTile.blueTag);
                 blueTile.blueTag++;
             }
         }
@@ -88,11 +88,12 @@ public class redTile : robTriangle
             Vector3 P = A + (B -A) / helperFunctionsClass.GOLDENRATIO;
             Vector3 Q = C + (A - C) / helperFunctionsClass.GOLDENRATIO;
 
-            if(mirror)
+            if(mirrored)
             {
                 _deflate(typeof(redTile), B, P, C, true, "deflatedKite", redTag);
                 redTag++;
-                _deflate(typeof(redTile), P, Q, C, false, "deflatedKite", redTag);
+                Debug.Log("doing this non-mirror one");
+                _deflate(typeof(redTile), P, Q, C, false, "deflatedKite", redTag); 
                 redTag++;
                 _deflate(typeof(blueTile), P, A, Q, true, "deflatedKite", blueTile.blueTag);
                 blueTile.blueTag++;
@@ -102,15 +103,13 @@ public class redTile : robTriangle
             {
                 _deflate(typeof(redTile), P, B, C, false, "deflatedKite", redTag);
                 redTag++;
+                Debug.Log("doing this mirror one");
                 _deflate(typeof(redTile), Q, P, C, true, "deflatedKite", redTag);
                 redTag++;
                 _deflate(typeof(blueTile), A, P, Q, false, "deflatedKite", blueTile.blueTag);
                 blueTile.blueTag++;
             }
         }
-
-
-
     }
 
     public override int tagNo()

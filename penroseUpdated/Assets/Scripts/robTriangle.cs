@@ -18,7 +18,7 @@ public class robTriangle : MonoBehaviour
 
 
     public int _id;
-    public bool mirror;
+    public bool mirrored;
     public float rotation;
     public Vector3 centre;
     public Vector3 worldVertex1;
@@ -53,14 +53,13 @@ public class robTriangle : MonoBehaviour
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, bool snap, int tagNo)
     {   
-        // Bit strange that i flip the verticies, why not just put them ver1 ver2 for mirror triangles?? Maybe I should change
 
         if(mirrorImage)
-        {
+        {   Debug.Log("mirror init");
             Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage, tagNo);
         }
         else
-        {
+        {   Debug.Log("non-murror init");
             Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage, tagNo);
         }
     }
@@ -68,7 +67,7 @@ public class robTriangle : MonoBehaviour
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, int t1, int t2, int t3, bool mirrorImage, int tagNo)
     {
-        mirror = mirrorImage;
+        mirrored = mirrorImage;
 
         vertex1 = ver1;
         vertex2 = ver2;
@@ -112,7 +111,7 @@ public class robTriangle : MonoBehaviour
         newTileObj.name = name;
         robTriangle newTile = (robTriangle)newTileObj.AddComponent(typeTile); 
 
-        newTile.Init(v1, v2, v3, mirror, false, tagNo);
+        newTile.Init(v1, v2, v3, mirrorImage, false, tagNo);
         newTileObj.SetActive(true);
     }
 

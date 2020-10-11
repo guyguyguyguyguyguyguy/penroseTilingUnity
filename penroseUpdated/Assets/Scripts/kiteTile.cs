@@ -10,8 +10,8 @@ public class kiteTile : tile
     {
         centre = clickPos - new Vector3(0, 0.5f *helperFunctionsClass.redSides);
 
-        createP2Tile("red", clickPos, -18, "leftKite", false, false);
-        createP2Tile("red", clickPos, 18, "rightKite", true, true);
+        createP2Tile("red", clickPos, -18, "leftKite", true, true);
+        createP2Tile("red", clickPos, 18, "rightKite", false, false);
     }
 
 
