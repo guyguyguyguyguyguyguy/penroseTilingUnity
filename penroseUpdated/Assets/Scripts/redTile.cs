@@ -38,9 +38,6 @@ public class redTile : robTriangle
             Destroy(outlineL);
             Destroy(outlineR);
 
-            // Need to remove old verticies and triangles from drawer
-            // redTag--;
-
             manager.allObjects.Remove(this);
         }
     }
@@ -54,10 +51,10 @@ public class redTile : robTriangle
 
         if(typeOfTiling == "Thin" || typeOfTiling == "Thick")
         {
-            // for tests
-            A += new Vector3(1, 0);
-            B += new Vector3(1, 0);
-            C += new Vector3(1, 0);
+            // // for tests
+            // A += new Vector3(1, 0);
+            // B += new Vector3(1, 0);
+            // C += new Vector3(1, 0);
 
             Vector3 P = A + (B - A) / helperFunctionsClass.GOLDENRATIO;
 
@@ -80,10 +77,10 @@ public class redTile : robTriangle
         
         else if(typeOfTiling == "Kite" || typeOfTiling == "Dart")
         {
-            // for tests
-            A += new Vector3(1, 0);
-            B += new Vector3(1, 0);
-            C += new Vector3(1, 0);
+            // // for tests
+            // A += new Vector3(1, 0);
+            // B += new Vector3(1, 0);
+            // C += new Vector3(1, 0);
 
             Vector3 P = A + (B -A) / helperFunctionsClass.GOLDENRATIO;
             Vector3 Q = C + (A - C) / helperFunctionsClass.GOLDENRATIO;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using helperFunctions;
 
 public class movement : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class movement : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Camera.main.orthographicSize *= helperFunctionsClass.GOLDENRATIO;
+        }
+
         if(Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(new Vector3(speed * Time.deltaTime,0,0));

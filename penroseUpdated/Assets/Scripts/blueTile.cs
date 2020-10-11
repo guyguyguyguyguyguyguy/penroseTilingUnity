@@ -37,9 +37,6 @@ public class blueTile : robTriangle
             Destroy(outlineL);
             Destroy(outlineR);
 
-            // Need to remove old verticies and triangles from drawer
-            // blueTag--;
-
             manager.allObjects.Remove(this);
         }
     }
@@ -54,10 +51,10 @@ public class blueTile : robTriangle
 
         if(typeOfTiling == "Thick" || typeOfTiling == "Thin")
         {
-            // for tests
-            A += new Vector3(1, 0);
-            B += new Vector3(1, 0);
-            C += new Vector3(1, 0);
+            // // for tests
+            // A += new Vector3(1, 0);
+            // B += new Vector3(1, 0);
+            // C += new Vector3(1, 0);
 
             Vector3 Q = B + (A - B) / helperFunctionsClass.GOLDENRATIO;
             Vector3 R = B + (C - B) / helperFunctionsClass.GOLDENRATIO;
@@ -88,10 +85,10 @@ public class blueTile : robTriangle
         else if(typeOfTiling == "Dart" || typeOfTiling == "Kite")
         {
 
-            // for tests
-            A += new Vector3(1, 0);
-            B += new Vector3(1, 0);
-            C += new Vector3(1, 0);
+            // // for tests
+            // A += new Vector3(1, 0);
+            // B += new Vector3(1, 0);
+            // C += new Vector3(1, 0);
 
             Vector3 P = B + (C - B) / helperFunctionsClass.GOLDENRATIO;
 
@@ -99,7 +96,7 @@ public class blueTile : robTriangle
             {
                 _deflate(typeof(redTile), A, P, B, false, "deflatedDart", redTile.redTag);
                 redTile.redTag++;
-                _deflate(typeof(blueTile), A, C, P, false, "deflatedDart", blueTag);
+                _deflate(typeof(blueTile), A, C, P, true, "deflatedDart", blueTag);
                 blueTag++;
             }
             
@@ -107,7 +104,7 @@ public class blueTile : robTriangle
             {
                 _deflate(typeof(redTile), P, A, B, true, "deflatedDart", redTile.redTag);
                 redTile.redTag++;
-                _deflate(typeof(blueTile), C, A, P, true, "deflatedDart", blueTag);
+                _deflate(typeof(blueTile), C, A, P, false, "deflatedDart", blueTag);
                 blueTag++;
             }
         }

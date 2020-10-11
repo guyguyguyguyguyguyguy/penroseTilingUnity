@@ -35,14 +35,14 @@ public class manager : MonoBehaviour
 
     void Start()
     {
-    //     dartTile firstDart = new dartTile();
-    //     firstDart.Init(new Vector3());
+        // dartTile firstDart = new dartTile();
+        // firstDart.Init(new Vector3());
 
-        kiteTile firstKite = new kiteTile();
-        firstKite.Init(new Vector3());
+        // kiteTile firstKite = new kiteTile();
+        // firstKite.Init(new Vector3());
 
-        // thickRhomb firstTRhomb = new thickRhomb();
-        // firstTRhomb.Init(new Vector3());
+        thickRhomb firstTRhomb = new thickRhomb();
+        firstTRhomb.Init(new Vector3());
 
         // thinRhomb firstThRhomb = new thinRhomb();
         // firstThRhomb.Init(new Vector3());

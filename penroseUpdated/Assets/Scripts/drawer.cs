@@ -32,6 +32,17 @@ public class drawer : MonoBehaviour
         awesomeMesh.Clear();
         awesomeMesh.vertices = vertices;
         awesomeMesh.triangles = triangles;
+
+        // Need to ensure that this is updated first before the tiles, how?
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            redTile.redTag = 0;
+            blueTile.blueTag = 0;
+
+            vertices = null;
+            triangles = null;
+        }
+
     }
 
 
