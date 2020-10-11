@@ -64,7 +64,7 @@ public class tile : MonoBehaviour
         }
     }
 
-    protected void createP3Tile(string tileType, Vector3 clickPos, float angle, string name, bool mirror, bool snap)
+    protected void createP3Tile(string tileType, Vector3 clickPos, float angle, string name, bool mirror)
     {
         Vector3 ver1 = new Vector3();
         Vector3 ver2 = new Vector3();

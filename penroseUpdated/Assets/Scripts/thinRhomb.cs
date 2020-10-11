@@ -8,10 +8,15 @@ public class thinRhomb : tile
 
     public void Init(Vector3 clickPos)
     {
+        Init(clickPos, false, true);
+    }
+
+    public void Init(Vector3 clickPos, bool topMirror, bool bottomMirror)
+    {
         centre = clickPos;
 
-        createP3Tile("red", clickPos, 0, "topThin", false, false);
-        createP3Tile("red", clickPos, 180, "bottomThin", true, true);
+        createP3Tile("red", clickPos, 0, "topThin", topMirror);
+        createP3Tile("red", clickPos, 180, "bottomThin", bottomMirror);
     }
 
 

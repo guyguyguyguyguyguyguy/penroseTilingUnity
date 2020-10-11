@@ -8,8 +8,6 @@ using System.Text.RegularExpressions;
 public class redTile : robTriangle
 {   
     public static int redTag = 0;
-    string typeOfTiling;
-
 
     protected override void Start()
     {   
@@ -60,17 +58,17 @@ public class redTile : robTriangle
 
             if(mirrored)
             {
-                _deflate(typeof(redTile), B, P, C, true, "deflatedThin", redTag);
+                _deflate(typeof(redTile), B, P, C, true, "bottomThin", redTag);
                 redTag++;
-                _deflate(typeof(blueTile), A, C, P,true, "deflatedThin", blueTile.blueTag);
+                _deflate(typeof(blueTile), A, C, P,true, "rightThick", blueTile.blueTag);
                 blueTile.blueTag++;
             }
 
             else
             {
-                _deflate(typeof(redTile), P, B, C, false, "deflatedThin", redTag);
+                _deflate(typeof(redTile), P, B, C, false, "topThin", redTag);
                 redTag++;
-                _deflate(typeof(blueTile), C, A, P, false, "deflatedThin", blueTile.blueTag);
+                _deflate(typeof(blueTile), C, A, P, false, "leftThick", blueTile.blueTag);
                 blueTile.blueTag++;
             }
         }
@@ -87,23 +85,23 @@ public class redTile : robTriangle
 
             if(mirrored)
             {
-                _deflate(typeof(redTile), B, P, C, true, "deflatedKite", redTag);
+                _deflate(typeof(redTile), B, P, C, true, "leftKite", redTag);
                 redTag++;
                 Debug.Log("doing this non-mirror one");
-                _deflate(typeof(redTile), P, Q, C, false, "deflatedKite", redTag); 
+                _deflate(typeof(redTile), P, Q, C, false, "rightKite", redTag); 
                 redTag++;
-                _deflate(typeof(blueTile), P, A, Q, true, "deflatedKite", blueTile.blueTag);
+                _deflate(typeof(blueTile), P, A, Q, true, "rightDart", blueTile.blueTag);
                 blueTile.blueTag++;
             }
 
             else
             {
-                _deflate(typeof(redTile), P, B, C, false, "deflatedKite", redTag);
+                _deflate(typeof(redTile), P, B, C, false, "rightKite", redTag);
                 redTag++;
                 Debug.Log("doing this mirror one");
-                _deflate(typeof(redTile), Q, P, C, true, "deflatedKite", redTag);
+                _deflate(typeof(redTile), Q, P, C, true, "leftKite", redTag);
                 redTag++;
-                _deflate(typeof(blueTile), A, P, Q, false, "deflatedKite", blueTile.blueTag);
+                _deflate(typeof(blueTile), A, P, Q, false, "leftDart", blueTile.blueTag);
                 blueTile.blueTag++;
             }
         }

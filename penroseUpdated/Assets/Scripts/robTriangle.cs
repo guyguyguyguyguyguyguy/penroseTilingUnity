@@ -20,6 +20,7 @@ public class robTriangle : MonoBehaviour
     public int _id;
     public bool mirrored;
     public float rotation;
+    public string typeOfTiling;
     public Vector3 centre;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
@@ -171,5 +172,10 @@ public class robTriangle : MonoBehaviour
     public virtual int tagNo()
     {
         return 0;
+    }
+
+    public string getTileType()
+    {
+        return typeOfTiling;
     }
 }

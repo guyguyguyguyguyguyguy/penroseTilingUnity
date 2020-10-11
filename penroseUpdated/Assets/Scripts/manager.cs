@@ -9,13 +9,13 @@ public class manager : MonoBehaviour
     public static List<robTriangle> allObjects = new List<robTriangle>();
     public static GameObject blueDrawObj;
     public static GameObject redDrawObj;
-
+    public static string tileType;
 
     void Awake()
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        OnDemandRendering.renderFrameInterval = 60;
+        OnDemandRendering.renderFrameInterval = 2;
         Physics.autoSimulation = false;
 
         blueDrawObj = new GameObject();
@@ -34,12 +34,17 @@ public class manager : MonoBehaviour
     }
 
     void Start()
-    {
+    {   
+        // tileType = "P2";
+
         // dartTile firstDart = new dartTile();
         // firstDart.Init(new Vector3());
 
         // kiteTile firstKite = new kiteTile();
         // firstKite.Init(new Vector3());
+
+
+        tileType = "P3";
 
         thickRhomb firstTRhomb = new thickRhomb();
         firstTRhomb.Init(new Vector3());
@@ -50,6 +55,12 @@ public class manager : MonoBehaviour
 
 
     void Update()
+    {
+
+    }
+
+
+    void proceduralGeneration()
     {
 
     }
