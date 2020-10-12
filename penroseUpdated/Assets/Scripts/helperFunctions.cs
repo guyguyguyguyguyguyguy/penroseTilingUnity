@@ -81,7 +81,16 @@ namespace helperFunctions
 
 
             return new Vector3(newx, newy, -10f);
-        }   
+        }  
+
+        public static System.Tuple<float, float> boundedBoxFunc(float hypotenuse, float angle)
+        {
+
+            float height = Mathf.Sin(angle * (Mathf.PI/180)) * hypotenuse;
+            float width = Mathf.Cos(angle * (Mathf.PI/180)) * hypotenuse;
+
+            return new System.Tuple<float, float>(height, width);
+        }
 
     }
 }

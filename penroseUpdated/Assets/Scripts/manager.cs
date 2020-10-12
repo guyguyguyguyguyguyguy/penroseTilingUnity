@@ -46,11 +46,11 @@ public class manager : MonoBehaviour
 
         tileType = "P3";
 
-        thickRhomb firstTRhomb = new thickRhomb();
-        firstTRhomb.Init(new Vector3());
+        // thickRhomb firstTRhomb = new thickRhomb();
+        // firstTRhomb.Init(new Vector3());
 
-        // thinRhomb firstThRhomb = new thinRhomb();
-        // firstThRhomb.Init(new Vector3());
+        thinRhomb firstThRhomb = new thinRhomb();
+        firstThRhomb.Init(new Vector3());
     }
 
 

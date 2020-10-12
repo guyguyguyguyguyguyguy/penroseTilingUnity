@@ -40,7 +40,7 @@ public class robTriangle : MonoBehaviour
         worldVerticies[1] = worldVertex2;
         worldVerticies[2] = worldVertex3;
 
-        this.centre = centreOfTile();
+        // this.centre = centreOfTile();
 
         worldVertex1[2] = 10f;
         worldVertex2[2] = 10f;
@@ -52,15 +52,15 @@ public class robTriangle : MonoBehaviour
     }
 
 
-    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, bool snap, int tagNo)
+    public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, int tagNo)
     {   
 
         if(mirrorImage)
-        {   Debug.Log("mirror init");
+        {   
             Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage, tagNo);
         }
         else
-        {   Debug.Log("non-murror init");
+        {  
             Init(ver1, ver2, ver3, 0, 2, 1, mirrorImage, tagNo);
         }
     }
@@ -112,7 +112,7 @@ public class robTriangle : MonoBehaviour
         newTileObj.name = name;
         robTriangle newTile = (robTriangle)newTileObj.AddComponent(typeTile); 
 
-        newTile.Init(v1, v2, v3, mirrorImage, false, tagNo);
+        newTile.Init(v1, v2, v3, mirrorImage, tagNo);
         newTileObj.SetActive(true);
     }
 
@@ -139,18 +139,18 @@ public class robTriangle : MonoBehaviour
         return outline;
     }
 
-    protected Vector3 centreOfTile()
-    {   
-        Vector3 centre = new Vector3();
+    // protected Vector3 centreOfTile()
+    // {   
+    //     Vector3 centre = new Vector3();
 
-        foreach(Vector3 x in this.worldVerticies)
-        {
-            centre += x;
-        }
+    //     foreach(Vector3 x in this.worldVerticies)
+    //     {
+    //         centre += x;
+    //     }
 
-        return centre/3;
+    //     return centre/3;
 
-    }
+    // }
 
     protected void vectorsTrianglesToDrawer(System.Type typeTile, Vector3[] vertices, int[] triangles)
     {   
