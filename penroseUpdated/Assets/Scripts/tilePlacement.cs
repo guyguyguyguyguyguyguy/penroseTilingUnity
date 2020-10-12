@@ -5,7 +5,7 @@ using System;
 
 public class tilePlacement : MonoBehaviour
 {   
-    Action<robTriangle, string, bool> updateMethod;
+    Action<robTriangle, string> updateMethod;
 
     void Start()
     {
@@ -30,12 +30,16 @@ public class tilePlacement : MonoBehaviour
             {  
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var closestTriangle = getClosestTriangle(manager.allObjects, mouseClickCoor);
-                // Need to play with as this does not consider the tile being orientated diferently
-                bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
 
-                if(closestTriangle.Item2 < 0.9)
-                {
-                    updateMethod(closestTriangle.Item1, "left", side);
+                Debug.Log(closestTriangle.Item1.name);
+                Debug.Log(closestTriangle.Item2);
+
+                // Need to play with as this does not consider the tile being orientated diferently 
+                // bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
+
+                if((closestTriangle.Item2 - 30) < 0.9)
+                {   
+                    updateMethod(closestTriangle.Item1, "left");
                 }
             }
 
@@ -44,23 +48,24 @@ public class tilePlacement : MonoBehaviour
             {
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var closestTriangle = getClosestTriangle(manager.allObjects, mouseClickCoor);
-                bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
+
+                // bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
 
                 if(closestTriangle.Item2 < 0.9)
                 {
-                    updateMethod(closestTriangle.Item1, "right", side);
+                    updateMethod(closestTriangle.Item1, "right");
                 }
             }
         }
     }
 
 
-    public static void P2TilePlacement(robTriangle nearestTriangle, string mouseClick, bool side)
+    public static void P2TilePlacement(robTriangle nearestTriangle, string mouseClick)
     {
 
         if(mouseClick == "left")
         {
-            addThinRhomb(nearestTriangle.worldVertex3, nearestTriangle.getTileType(), side);
+
         }
 
         else if(mouseClick == "right")
@@ -70,12 +75,12 @@ public class tilePlacement : MonoBehaviour
     }
 
 
-    public static void P3TilePlacement(robTriangle nearestTriangle, string mouseClick, bool side)
+    public static void P3TilePlacement(robTriangle nearestTriangle, string mouseClick)
     {
 
         if(mouseClick == "left")
-        {
-
+        {   
+            addThinRhomb(nearestTriangle.worldVertex3, nearestTriangle.centre, nearestTriangle.name);
         }
 
         else if(mouseClick == "right")
@@ -91,7 +96,7 @@ public class tilePlacement : MonoBehaviour
         float minDist = Mathf.Infinity;
         foreach (robTriangle t in triangles)
         {
-            float dist = Vector3.Distance(t.centre, mousePos);
+            float dist = Vector3.Distance(t.worldVertex3, mousePos);
             if (dist < minDist)
             {
                 closest = t;
@@ -100,37 +105,36 @@ public class tilePlacement : MonoBehaviour
         }
 
         return new Tuple<robTriangle, float>(closest, minDist);
+
     }  
 
-
-    static void addThinRhomb(Vector3 pivot, string triangleType, bool side)
+    static void addThinRhomb(Vector3 pivot, Vector3 centre, string triangleType)
     {
+        thinRhomb newTile = new thinRhomb();
+
+
+        // Not workingggg
+
         switch (triangleType)
         {
             case "topThin":
 
-                float rotation = (side) ? x : y;
-
-                thinRhomb newTile = new thinRhomb();
-                newTile.Init();
+                newTile.Init(centre, false, true, -216, pivot);
                 break;
             
-            case "bottomThin":
-
-
-                float rotation = (side) ? x : y;
+            case "bottomThin": 
+                
+                newTile.Init(centre, false, true, 216, pivot);
                 break;
 
             case "leftThick":
 
 
-                float rotation = (side) ? x : y;
                 break;
 
             case "rightThick":
 
 
-                float rotation = (side) ? x : y;
                 break;
 
         }

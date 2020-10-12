@@ -16,6 +16,8 @@ public class movement : MonoBehaviour
 
     void Update()
     {
+        Camera.main.orthographicSize -= Input.mouseScrollDelta.y * 0.23f;
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Camera.main.orthographicSize *= helperFunctionsClass.GOLDENRATIO;
