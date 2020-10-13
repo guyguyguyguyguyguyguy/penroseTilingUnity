@@ -36,7 +36,7 @@ public class blueTile : robTriangle
             Destroy(outlineL);
             Destroy(outlineR);
 
-            manager.allObjects.Remove(this);
+            // manager.allObjects.Remove(this);
         }
     }
 

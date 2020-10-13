@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public class manager : MonoBehaviour
 {
     public int _id = 0;
-    public static List<robTriangle> allObjects = new List<robTriangle>();
+    public static List<tile> allObjects = new List<tile>();
     public static GameObject blueDrawObj;
     public static GameObject redDrawObj;
     public static string tileType;

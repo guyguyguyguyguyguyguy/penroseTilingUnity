@@ -5,7 +5,7 @@ using System;
 
 public class tilePlacement : MonoBehaviour
 {   
-    Action<robTriangle, string> updateMethod;
+    Action<Vector3, tile, string, bool> updateMethod;
 
     void Start()
     {
@@ -29,17 +29,11 @@ public class tilePlacement : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) 
             {  
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var closestTriangle = getClosestTriangle(manager.allObjects, mouseClickCoor);
+                var closestTile = getClosestTile(manager.allObjects, mouseClickCoor);
 
-                Debug.Log(closestTriangle.Item1.name);
-                Debug.Log(closestTriangle.Item2);
-
-                // Need to play with as this does not consider the tile being orientated diferently 
-                // bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
-
-                if((closestTriangle.Item2 - 30) < 0.9)
+                if((closestTile.Item2 - 30) < 0.9)
                 {   
-                    updateMethod(closestTriangle.Item1, "left");
+                    updateMethod(closestTile.Item3, closestTile.Item1, "left", closestTile.Item4);
                 }
             }
 
@@ -47,20 +41,20 @@ public class tilePlacement : MonoBehaviour
             else if(Input.GetMouseButtonDown(1))
             {
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                var closestTriangle = getClosestTriangle(manager.allObjects, mouseClickCoor);
+                var closestTile = getClosestTile(manager.allObjects, mouseClickCoor);
 
-                // bool side = (Vector3.Distance(mouseClickCoor, closestTriangle.Item1.centre) < 0) ? true: false;
+                // bool side = (Vector3.Distance(mouseClickCoor, closestTile.Item1.centre) < 0) ? true: false;
 
-                if(closestTriangle.Item2 < 0.9)
+                if(closestTile.Item2 < 0.9)
                 {
-                    updateMethod(closestTriangle.Item1, "right");
+                    updateMethod(closestTile.Item3, closestTile.Item1, "right", closestTile.Item4);
                 }
             }
         }
     }
 
 
-    public static void P2TilePlacement(robTriangle nearestTriangle, string mouseClick)
+    public static void P2TilePlacement(Vector3 neartestVertex, tile nearestTile, string mouseClick, bool topOrBottom)
     {
 
         if(mouseClick == "left")
@@ -75,12 +69,12 @@ public class tilePlacement : MonoBehaviour
     }
 
 
-    public static void P3TilePlacement(robTriangle nearestTriangle, string mouseClick)
+    public static void P3TilePlacement(Vector3 neartestVertex, tile nearestTile, string mouseClick, bool topOrBottom)
     {
 
         if(mouseClick == "left")
         {   
-            addThinRhomb(nearestTriangle.worldVertex3, nearestTriangle.centre, nearestTriangle.name);
+            addThinRhomb(neartestVertex, topOrBottom, nearestTile.centre, nearestTile.name);
         }
 
         else if(mouseClick == "right")
@@ -90,44 +84,58 @@ public class tilePlacement : MonoBehaviour
     }
     
 
-    static Tuple<robTriangle, float> getClosestTriangle(List<robTriangle> triangles, Vector3 mousePos)
+    static Tuple<tile, float, Vector3, bool> getClosestTile(List<tile> tiles, Vector3 mousePos)
     {
-        robTriangle closest = null;
+        tile closest = null;
+        Vector3 closestVer = Vector3.zero;
         float minDist = Mathf.Infinity;
-        foreach (robTriangle t in triangles)
+        foreach (tile t in tiles)
         {
-            float dist = Vector3.Distance(t.worldVertex3, mousePos);
+            float dist = Vector3.Distance(t.centre, mousePos);
             if (dist < minDist)
             {
                 closest = t;
                 minDist = dist;
             }
         }
+        
+        if(Mathf.Abs(Vector3.Distance(mousePos, closest.tileVertices[0])) < Mathf.Abs(Vector3.Distance(mousePos, closest.tileVertices[2])))
+        {
+            closestVer = closest.tileVertices[0];
+        }
+        else
+        {
+            closestVer = closest.tileVertices[2];
+        }
 
-        return new Tuple<robTriangle, float>(closest, minDist);
+        bool topOrBottom = (Mathf.Abs(Vector3.Distance(mousePos, closest.tileVertices[1])) < Mathf.Abs(Vector3.Distance(mousePos, closest.tileVertices[3]))) ? true : false; 
+
+        return new Tuple< tile, float, Vector3, bool>(closest, minDist, closestVer, topOrBottom);
 
     }  
 
-    static void addThinRhomb(Vector3 pivot, Vector3 centre, string triangleType)
+    static void addThinRhomb(Vector3 pivotVertex, bool topOrBottom, Vector3 centre, string triangleType)
     {
         thinRhomb newTile = new thinRhomb();
 
-
-        // Not workingggg
+        // Not working for second generation, possibly need to add the previous tiles rotation?
 
         switch (triangleType)
         {
-            case "topThin":
+            case "thinRhomb":
 
-                newTile.Init(centre, false, true, -216, pivot);
-                break;
-            
-            case "bottomThin": 
-                
-                newTile.Init(centre, false, true, 216, pivot);
+                if(topOrBottom)
+                {
+                    newTile.Init(centre, false, true, -216 , pivotVertex);
+                }
+                else
+                {
+                    newTile.Init(centre, false, true, 216, pivotVertex);
+                }
+
                 break;
 
-            case "leftThick":
+            case "thickRhomb":
 
 
                 break;

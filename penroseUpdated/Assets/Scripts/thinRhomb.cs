@@ -18,10 +18,21 @@ public class thinRhomb : tile
 
     public void Init(Vector3 clickPos, bool topMirror, bool bottomMirror, float pivotangle, Vector3 pivot)
     {
-        centre = clickPos;
 
-        createP3Tile("red", clickPos, 0f, pivotangle,  "topThin", topMirror, pivot);
-        createP3Tile("red", clickPos, 180f, pivotangle, "bottomThin", bottomMirror, pivot);
+        name = "thinRhomb";
+
+        Vector3[] topVertices = createP3Tile("red", clickPos, 0f, pivotangle,  "topThin", topMirror, pivot);
+        Vector3[] botVertices = createP3Tile("red", clickPos, 180f, pivotangle, "bottomThin", bottomMirror, pivot);
+
+        // Vector3[] fourthVer = new Vector3[]{botVertices[2]};
+        // tileVertices = helperFunctionsClass.addToArray(ref(topVertices),  fourthVer);
+
+        tileVertices = new Vector3[] {topVertices[0], topVertices[2], topVertices[1], botVertices[2]};
+
+        centre = centreOfTile();
+        rotation = pivotangle;
+
+        manager.allObjects.Add(this);
     }
 
 
@@ -34,5 +45,19 @@ public class thinRhomb : tile
     protected override void Update()
     {
         
+    }
+
+
+    protected Vector3 centreOfTile()
+    {   
+        Vector3 centre = new Vector3();
+
+        foreach(Vector3 x in this.tileVertices)
+        {
+            centre += x;
+        }
+
+        return centre/4;
+
     }
 }

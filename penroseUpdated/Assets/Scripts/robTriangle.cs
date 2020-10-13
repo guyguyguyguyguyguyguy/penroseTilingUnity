@@ -48,7 +48,7 @@ public class robTriangle : MonoBehaviour
 
         vectorsTrianglesToDrawer(this.GetType(), worldVerticies, triangles);
 
-        manager.allObjects.Add(this);
+        // manager.allObjects.Add(this);
     }
 
 
@@ -139,18 +139,6 @@ public class robTriangle : MonoBehaviour
         return outline;
     }
 
-    // protected Vector3 centreOfTile()
-    // {   
-    //     Vector3 centre = new Vector3();
-
-    //     foreach(Vector3 x in this.worldVerticies)
-    //     {
-    //         centre += x;
-    //     }
-
-    //     return centre/3;
-
-    // }
 
     protected void vectorsTrianglesToDrawer(System.Type typeTile, Vector3[] vertices, int[] triangles)
     {   
