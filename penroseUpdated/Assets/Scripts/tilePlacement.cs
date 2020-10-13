@@ -45,7 +45,7 @@ public class tilePlacement : MonoBehaviour
 
                 // bool side = (Vector3.Distance(mouseClickCoor, closestTile.Item1.centre) < 0) ? true: false;
 
-                if(closestTile.Item2 < 0.9)
+                if((closestTile.Item2 - 30) < 0.9)
                 {
                     updateMethod(closestTile.Item3, closestTile.Item1, "right", closestTile.Item4);
                 }
@@ -79,7 +79,7 @@ public class tilePlacement : MonoBehaviour
 
         else if(mouseClick == "right")
         {
-            
+            addThickRhomb(neartestVertex, topOrBottom, nearestTile.centre, nearestTile.name, nearestTile.rotation);
         }
     }
     
@@ -118,7 +118,9 @@ public class tilePlacement : MonoBehaviour
     {
         thinRhomb newTile = new thinRhomb();
 
-        // Not working for second generation, possibly need to add the previous tiles rotation?
+        // TODO: None of this is working of second generation of tile placement, possibly need to add the previous tiles rotation?
+
+        Debug.Log(triangleType);
 
         switch (triangleType)
         {
@@ -126,26 +128,64 @@ public class tilePlacement : MonoBehaviour
 
                 if(topOrBottom)
                 {
-                    newTile.Init(centre, false, true, -216 , pivotVertex);
+                    newTile.Init(centre, false, true, 144 , pivotVertex);
                 }
                 else
                 {
-                    newTile.Init(centre, false, true, 216, pivotVertex);
+                    newTile.Init(centre, false, true, -144, pivotVertex);
                 }
 
                 break;
 
             case "thickRhomb":
+                // Doesnt work!
+                if(topOrBottom)
+                {
+                    
+                }
+                else
+                {
 
-
-                break;
-
-            case "rightThick":
-
+                }
 
                 break;
 
         }
 
+    }
+
+    static void addThickRhomb(Vector3 pivotVertex, bool topOrBottom, Vector3 centre, string triangleType, float currentRotation)
+    {
+        thickRhomb newTile = new thickRhomb();
+
+        switch (triangleType)
+        {
+            case "thinRhomb":
+
+            // Does not work
+            if(topOrBottom)
+            {
+
+            }
+            else
+            {
+
+            }
+            
+            break;
+
+            case "thickRhomb":
+
+            if(topOrBottom)
+            {
+                newTile.Init(centre, false, true, -72 - currentRotation, pivotVertex);
+            }
+            else
+            {
+                newTile.Init(centre, false, true, 72 + currentRotation, pivotVertex);
+            }
+
+            break;
+        }
     }
 }

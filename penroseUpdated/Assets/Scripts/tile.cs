@@ -162,4 +162,18 @@ public class tile : MonoBehaviour
     
     return new Vector3[] {rotatedVer1, rotatedVer2, rotatedVer3};
     }
+
+
+    protected Vector3 centreOfTile()
+    {   
+        Vector3 centre = new Vector3();
+
+        foreach(Vector3 x in this.tileVertices)
+        {
+            centre += x;
+        }
+
+        return centre/4;
+
+    }
 }

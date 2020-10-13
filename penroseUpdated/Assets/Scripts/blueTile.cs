@@ -64,7 +64,6 @@ public class blueTile : robTriangle
                 blueTag++;
                 _deflate(typeof(redTile), Q, A, R, false, "topThin", redTile.redTag);
                 redTile.redTag++;
-                Debug.Log("mirror below");
                 _deflate(typeof(blueTile), A, C, R, true, "rightThick", blueTag);
                 blueTag++;
             }
@@ -75,7 +74,6 @@ public class blueTile : robTriangle
                 blueTag++;
                 _deflate(typeof(redTile), A, Q, R, true, "bottomThin", redTile.redTag);
                 redTile.redTag++;
-                Debug.Log("non-mirror below");
                 _deflate(typeof(blueTile), C, A, R, false, "leftThick", blueTag);
                 blueTag++;
             }
