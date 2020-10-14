@@ -21,26 +21,29 @@ public class thinRhomb : tile
 
         name = "thinRhomb";
 
-        Vector3[] topVertices = createP3Tile("red", clickPos, 0f, pivotangle,  "topThin", topMirror, pivot);
-        Vector3[] botVertices = createP3Tile("red", clickPos, 180f, pivotangle, "bottomThin", bottomMirror, pivot);
-
-        tileVertices = new Vector3[] {topVertices[0], topVertices[2], topVertices[1], botVertices[2]};
+        tileVertices = createP3Tile("red", clickPos);
 
         centre = centreOfTile();
-        rotation = pivotangle;
+        rotation = 54;
+
+        labelEdges();
 
         manager.allObjects.Add(this);
     }
 
 
-    protected override void Start()
-    {  
-
-    }
-
-
-    protected override void Update()
+    public void InitUser(Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4, float angleRotation, int matchCase)
     {
-        
+        name = "thinRhomb";
+
+        tileVertices = createP3Tile("red", ver1, ver2, ver3, ver4);        
+        rotation = angleRotation;
+        centre = centreOfTile();
+        matchingCase = matchCase;
+
+        labelEdges();
+
+        manager.allObjects.Add(this);
     }
+
 }

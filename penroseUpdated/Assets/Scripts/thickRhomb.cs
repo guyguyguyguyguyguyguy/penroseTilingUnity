@@ -21,30 +21,29 @@ public class thickRhomb : tile
 
         name = "thickRhomb";
 
-        Vector3[] rightVertices = createP3Tile("blue", clickPos, -90, pivotangle,  "rightThick", rightMirror, pivot);
-        Vector3[] leftVertices = createP3Tile("blue", clickPos, 90f, pivotangle, "leftThick", leftMirror, pivot);
-
-        // tileVertices = new Vector3[] {leftVertices[2], leftVertices[1], rightVertices[2], leftVertices[0]};
-
-        tileVertices = new Vector3[] {leftVertices[0], leftVertices[2] ,leftVertices[1], rightVertices[2]};
+        tileVertices = createP3Tile("blue", clickPos);
 
         centre = centreOfTile();
-        rotation = pivotangle;
+        rotation = -270;
+
+        labelEdges();
 
         manager.allObjects.Add(this);
     }
 
-
-
-    protected override void Start()
-    {  
-
-    }
-
-
-    protected override void Update()
+        public void InitUser(Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4, float angleRotation, int matchCase)
     {
-        
+        name = "thickRhomb";
+
+        tileVertices = createP3Tile("blue", ver1, ver2, ver3, ver4);        
+        rotation = angleRotation;
+        centre = centreOfTile();
+        matchingCase = matchCase;
+
+        labelEdges();
+
+        manager.allObjects.Add(this);
     }
+
 }
 

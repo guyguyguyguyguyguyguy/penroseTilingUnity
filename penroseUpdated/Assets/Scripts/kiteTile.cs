@@ -14,15 +14,4 @@ public class kiteTile : tile
         createP2Tile("red", clickPos, 18, "rightKite", false);
     }
 
-
-    protected override void Start()
-    {  
-
-    }
-
-
-    protected override void Update()
-    {
-        
-    }
 }

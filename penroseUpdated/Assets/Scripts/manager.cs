@@ -9,7 +9,7 @@ public class manager : MonoBehaviour
     public static List<tile> allObjects = new List<tile>();
     public static GameObject blueDrawObj;
     public static GameObject redDrawObj;
-    public static string tileType;
+    public static string tileType = "P3";
 
     void Awake()
     {
@@ -37,14 +37,15 @@ public class manager : MonoBehaviour
     {   
         // tileType = "P2";
 
+        // TODO: BUGGGG
         // dartTile firstDart = new dartTile();
-        // firstDart.Init(new Vector3());
+        // firstDart.Init(new Vector3(1, 0));
 
         // kiteTile firstKite = new kiteTile();
-        // firstKite.Init(new Vector3());
+        // firstKite.Init(new Vector3(0,1));
 
 
-        tileType = "P3";
+        // tileType = "P3";
 
         thickRhomb firstTRhomb = new thickRhomb();
         firstTRhomb.Init(new Vector3());

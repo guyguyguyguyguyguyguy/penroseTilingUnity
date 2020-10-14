@@ -15,14 +15,4 @@ public class dartTile : tile
 
     }
 
-    protected override void Start()
-    {  
-
-    }
-
-
-    protected override void Update()
-    {
-        
-    }
 }

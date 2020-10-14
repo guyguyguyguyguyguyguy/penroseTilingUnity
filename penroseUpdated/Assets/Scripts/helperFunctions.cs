@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace helperFunctions
 {
@@ -91,6 +92,40 @@ namespace helperFunctions
 
             return new System.Tuple<float, float>(height, width);
         }
+
+
+        public static Vector3 edgeCentre(Vector3[] edge)
+        {
+            Vector2 centre = new Vector3();
+            
+            foreach(Vector3 ver in edge)
+            {
+                Vector2 noZVer = new Vector2 (ver[0], ver[1]);
+                centre += noZVer;
+            }
+
+            return centre/2;
+        }
+
+        public static Vector3 thirdVer(Vector3 ver, float angle, float sideLen)
+        {   
+            float angleRad = angle * (Mathf.PI/ 180);
+
+            float coorX = sideLen * Mathf.Cos(angleRad) + ver[0];
+            float coorY = sideLen * Mathf.Sin(angleRad) + ver[1];
+
+            return new Vector3 (coorX, coorY, -10);
+        }
+
+
+
+        public static Vector3 fourthVer(Vector3 ver1, Vector3 ver2, Vector3 ver3)
+        {
+            return -ver1 + ver2 + ver3;
+        }
+
+
+        
 
     }
 }

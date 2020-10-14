@@ -74,7 +74,7 @@ public class tilePlacement : MonoBehaviour
 
         if(mouseClick == "left")
         {   
-            addThinRhomb(neartestVertex, topOrBottom, nearestTile.centre, nearestTile.name);
+            addThinRhomb(neartestVertex, topOrBottom, nearestTile.centre, nearestTile.name, nearestTile.rotation);
         }
 
         else if(mouseClick == "right")
@@ -114,7 +114,7 @@ public class tilePlacement : MonoBehaviour
 
     }  
 
-    static void addThinRhomb(Vector3 pivotVertex, bool topOrBottom, Vector3 centre, string triangleType)
+    static void addThinRhomb(Vector3 pivotVertex, bool topOrBottom, Vector3 centre, string triangleType, float currentRotation)
     {
         thinRhomb newTile = new thinRhomb();
 
@@ -128,11 +128,14 @@ public class tilePlacement : MonoBehaviour
 
                 if(topOrBottom)
                 {
-                    newTile.Init(centre, false, true, 144 , pivotVertex);
+                    // Debug.Log("Tile placemnt");
+                    // Debug.Log(currentRotation);
+
+                    newTile.Init(centre, false, true, 144  + currentRotation, pivotVertex);
                 }
                 else
                 {
-                    newTile.Init(centre, false, true, -144, pivotVertex);
+                    newTile.Init(centre, false, true, -144 + currentRotation, pivotVertex);
                 }
 
                 break;
