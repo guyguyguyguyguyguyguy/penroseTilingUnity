@@ -21,7 +21,6 @@ public class robTriangle : MonoBehaviour
     public bool mirrored;
     public float rotation;
     public string typeOfTiling;
-    public Vector3 centre;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
     public Vector3 worldVertex3;

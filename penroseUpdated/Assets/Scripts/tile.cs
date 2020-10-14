@@ -101,9 +101,9 @@ public class tile : MonoBehaviour
             rotatedVer2 = ver2;
             rotatedVer3 = ver3;
 
-            topTriangle.Init(ver1, ver2, ver3, false, redTile.redTag);
+            topTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, false, redTile.redTag);
             redTile.redTag++;
-            botTriangle.Init(ver2, ver1, rotatedVer4, true, redTile.redTag);
+            botTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, true, redTile.redTag);
             redTile.redTag++;
         }
 

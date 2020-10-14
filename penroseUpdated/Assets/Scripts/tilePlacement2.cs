@@ -35,9 +35,15 @@ public class tilePlacement2 : MonoBehaviour
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var closestTile = getClosestTile(manager.allObjects, mouseClickCoor);
 
-                if((closestTile.Item2 - 30) < 0.9)
+                if(closestTile.Item2 < 0.9)
                 {   
                     updateMethod("left", closestTile.Item1, closestTile.Item3, closestTile.Item4);
+                }
+
+                else
+                {
+                    thinRhomb newTile = new thinRhomb();
+                    newTile.Init(mouseClickCoor);
                 }
             }
 
@@ -47,10 +53,36 @@ public class tilePlacement2 : MonoBehaviour
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var closestTile = getClosestTile(manager.allObjects, mouseClickCoor);
 
-                if((closestTile.Item2 - 30) < 0.9)
+                if(closestTile.Item2 < 0.9)
                 {
+                    Debug.Log(closestTile.Item2 - 30);
                     updateMethod("right", closestTile.Item1, closestTile.Item3, closestTile.Item4);
                 }
+
+                else
+                {
+                    thickRhomb newTile = new thickRhomb();
+                    newTile.Init(mouseClickCoor);
+                }
+            }
+        }
+        
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                thinRhomb newTile = new thinRhomb();
+                newTile.Init(mouseClickCoor);
+            }
+
+            else if (Input.GetMouseButtonDown(1))
+            {
+                Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                thickRhomb newTile = new thickRhomb();
+                newTile.Init(mouseClickCoor);
             }
         }
     }
