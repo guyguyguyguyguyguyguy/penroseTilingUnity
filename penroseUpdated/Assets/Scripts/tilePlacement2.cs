@@ -646,7 +646,7 @@ public class tilePlacement2 : MonoBehaviour
 
                     else if (previousCase == 3)
                     {
-                        rotation = currentRotation -72;
+                        rotation = currentRotation - 108;
                     }
                     
                     else if (previousCase == 4)
@@ -712,7 +712,7 @@ public class tilePlacement2 : MonoBehaviour
                     
                     if (previousCase == 1)
                     {
-                        rotation = currentRotation -72;
+                        rotation = currentRotation - 108;
                     }
 
                     else if (previousCase == 2)
@@ -754,7 +754,7 @@ public class tilePlacement2 : MonoBehaviour
 
                     else if (previousCase == 2)
                     {
-                        rotation = currentRotation +72;
+                        rotation = currentRotation + 108;
                     }
 
                     else if (previousCase == 3)
