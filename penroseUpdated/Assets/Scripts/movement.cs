@@ -5,7 +5,7 @@ using helperFunctions;
 
 public class movement : MonoBehaviour
 {
-    private static float speed = 2f;
+    private float speed = 0.44f;
 
 
     void Start()
@@ -17,10 +17,12 @@ public class movement : MonoBehaviour
     void Update()
     {
         Camera.main.orthographicSize -= Input.mouseScrollDelta.y * 0.23f;
+        speed -= Input.mouseScrollDelta.y * 0.23f;
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Camera.main.orthographicSize *= helperFunctionsClass.GOLDENRATIO;
+            speed *= helperFunctionsClass.GOLDENRATIO;
         }
 
         if(Input.GetKey(KeyCode.RightArrow))

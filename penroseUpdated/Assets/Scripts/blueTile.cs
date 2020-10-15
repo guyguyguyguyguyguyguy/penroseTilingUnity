@@ -94,7 +94,7 @@ public class blueTile : robTriangle
             {
                 _deflate(typeof(redTile), A, P, B, false, "rightKite", redTile.redTag);
                 redTile.redTag++;
-                _deflate(typeof(blueTile), A, C, P, true, "RightDart", blueTag);
+                _deflate(typeof(blueTile), A, C, P, true, "rightDart", blueTag);
                 blueTag++;
             }
             

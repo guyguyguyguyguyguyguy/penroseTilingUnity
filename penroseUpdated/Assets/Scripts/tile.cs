@@ -18,51 +18,79 @@ public class tile : MonoBehaviour
 
     public new string name;
 
-    protected void createP2Tile(string tileType, Vector3 clickPos, float angle, string name, bool mirror)
+    protected Vector3[] createP2Tile(string tileType, Vector3 clickPos)
     {
         Vector3 ver1 = new Vector3();
         Vector3 ver2 = new Vector3();
         Vector3 ver3 = new Vector3();
 
-        GameObject newTileObj = new GameObject();
-        newTileObj.SetActive(false);
-        newTileObj.name = name;
+        Vector3 rotatedVer1 = new Vector3();
+        Vector3 rotatedVer2 = new Vector3();
+        Vector3 rotatedVer3 = new Vector3();
+        Vector3 rotatedVer4 = new Vector3();
+
+        GameObject nonMirror = new GameObject();
+        GameObject mirror = new GameObject();
+
+        nonMirror.SetActive(false);
+        mirror.SetActive(false);
 
         if(tileType == "red")
         {
-            redTile newTile = newTileObj.AddComponent<redTile>(); 
+            nonMirror.name = "rightKite";
+            mirror.name  = "leftKite";
+
+            redTile rightTriangle = nonMirror.AddComponent<redTile>();
+            redTile leftTriangle = mirror.AddComponent<redTile>();
+
 
             ver1 = clickPos + new Vector3(-(0.5f * helperFunctionsClass.redBase), - helperFunctionsClass.redHieght);
             ver2 = clickPos + new Vector3((0.5f * helperFunctionsClass.redBase), - helperFunctionsClass.redHieght);
             ver3 = clickPos;
 
-            Vector3 rotatedVer1 = helperFunctionsClass.rotatedVector(clickPos, ver1, angle);
-            Vector3 rotatedVer2 = helperFunctionsClass.rotatedVector(clickPos, ver2, angle);
-            Vector3 rotatedVer3 = helperFunctionsClass.rotatedVector(clickPos, ver3, angle);
+            rotatedVer1 = helperFunctionsClass.rotatedVector(clickPos, ver1, 18);
+            rotatedVer2 = helperFunctionsClass.rotatedVector(clickPos, ver2, 18);
+            rotatedVer3 = helperFunctionsClass.rotatedVector(clickPos, ver3, 18);
+            rotatedVer4 = helperFunctionsClass.rotatedVector(clickPos, ver1, -18);
 
-            newTile.Init(rotatedVer1, rotatedVer2, rotatedVer3, mirror, redTile.redTag);
-            newTileObj.SetActive(true);
+            rightTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, false, redTile.redTag);
+            redTile.redTag++;
+            leftTriangle.Init(rotatedVer4, rotatedVer1, rotatedVer3, true, redTile.redTag);
             redTile.redTag++;
 
         }
 
         else if(tileType == "blue")
         {
-            blueTile newTile = newTileObj.AddComponent<blueTile>(); 
+            nonMirror.name = "leftDart";
+            mirror.name  = "rightDart";
+
+            blueTile leftTriangle = nonMirror.AddComponent<blueTile>();
+            blueTile rightTriangle = mirror.AddComponent<blueTile>();
             
             ver1 = clickPos + new Vector3(-(0.5f * helperFunctionsClass.blueBase), - helperFunctionsClass.blueHeight);
             ver2 = clickPos + new Vector3((0.5f * helperFunctionsClass.blueBase), - helperFunctionsClass.blueHeight);
             ver3 = clickPos;
 
-            Vector3 rotatedVer1 = helperFunctionsClass.rotatedVector(clickPos, ver1, angle);
-            Vector3 rotatedVer2 = helperFunctionsClass.rotatedVector(clickPos, ver2, angle);
-            Vector3 rotatedVer3 = helperFunctionsClass.rotatedVector(clickPos, ver3, angle);
+            rotatedVer1 = helperFunctionsClass.rotatedVector(clickPos, ver1, 126);
+            rotatedVer2 = helperFunctionsClass.rotatedVector(clickPos, ver2, 126);
+            rotatedVer3 = helperFunctionsClass.rotatedVector(clickPos, ver3, 126);
+            rotatedVer4 = helperFunctionsClass.rotatedVector(clickPos, ver2, -126);
 
-            newTile.Init(rotatedVer1, rotatedVer2, rotatedVer3, mirror, blueTile.blueTag);
-            newTileObj.SetActive(true);
+
+            leftTriangle.Init(rotatedVer2, rotatedVer4, rotatedVer3, false, blueTile.blueTag);
+            blueTile.blueTag++;
+            rightTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, blueTile.blueTag);
             blueTile.blueTag++;
         }
+        
+        nonMirror.SetActive(true);
+        mirror.SetActive(true);
+
+        return new Vector3[] {rotatedVer1, rotatedVer3, rotatedVer2, rotatedVer4};
     }
+
+
 
 
 

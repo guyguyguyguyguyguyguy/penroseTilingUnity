@@ -35,15 +35,13 @@ public class manager : MonoBehaviour
 
     void Start()
     {   
-        // tileType = "P2";
+        tileType = "P2";
 
-        // TODO: BUGGGG
         // dartTile firstDart = new dartTile();
         // firstDart.Init(new Vector3(1, 0));
 
         // kiteTile firstKite = new kiteTile();
         // firstKite.Init(new Vector3(0,1));
-
 
         // tileType = "P3";
 

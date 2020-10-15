@@ -42,8 +42,17 @@ public class tilePlacement2 : MonoBehaviour
 
                 else
                 {
-                    thinRhomb newTile = new thinRhomb();
-                    newTile.Init(mouseClickCoor);
+                    if (manager.tileType == "P3")
+                    {
+                        thinRhomb newTile = new thinRhomb();
+                        newTile.Init(mouseClickCoor);
+                    }
+                    
+                    else if (manager.tileType == "P2")
+                    {
+                        kiteTile newTile = new kiteTile();
+                        newTile.Init(mouseClickCoor);
+                    }
                 }
             }
 
@@ -55,14 +64,22 @@ public class tilePlacement2 : MonoBehaviour
 
                 if(closestTile.Item2 < 0.9)
                 {
-                    Debug.Log(closestTile.Item2 - 30);
                     updateMethod("right", closestTile.Item1, closestTile.Item3, closestTile.Item4);
                 }
 
                 else
                 {
-                    thickRhomb newTile = new thickRhomb();
-                    newTile.Init(mouseClickCoor);
+                    if (manager.tileType == "P3")
+                    {
+                        thickRhomb newTile = new thickRhomb();
+                        newTile.Init(mouseClickCoor);
+                    }
+                    
+                    else if (manager.tileType == "P2")
+                    {
+                        dartTile newTile = new dartTile();
+                        newTile.Init(mouseClickCoor);
+                    }
                 }
             }
         }
@@ -72,17 +89,35 @@ public class tilePlacement2 : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                thinRhomb newTile = new thinRhomb();
-                newTile.Init(mouseClickCoor);
+            
+                if (manager.tileType == "P3")
+                {
+                    thinRhomb newTile = new thinRhomb();
+                    newTile.Init(mouseClickCoor);
+                }
+                
+                else if (manager.tileType == "P2")
+                {
+                    kiteTile newTile = new kiteTile();
+                    newTile.Init(mouseClickCoor);
+                }
             }
 
             else if (Input.GetMouseButtonDown(1))
             {
                 Vector3 mouseClickCoor =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                thickRhomb newTile = new thickRhomb();
-                newTile.Init(mouseClickCoor);
+                if (manager.tileType == "P3")
+                {
+                    thickRhomb newTile = new thickRhomb();
+                    newTile.Init(mouseClickCoor);
+                }
+                
+                else if (manager.tileType == "P2")
+                {
+                    dartTile newTile = new dartTile();
+                    newTile.Init(mouseClickCoor);
+                }
             }
         }
     }

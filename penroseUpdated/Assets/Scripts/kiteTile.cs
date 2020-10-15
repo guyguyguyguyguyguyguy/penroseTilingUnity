@@ -8,10 +8,16 @@ public class kiteTile : tile
 
     public void Init(Vector3 clickPos)
     {
-        centre = clickPos - new Vector3(0, 0.5f *helperFunctionsClass.redSides);
+        name = "kiteTile";
 
-        createP2Tile("red", clickPos, -18, "leftKite", true);
-        createP2Tile("red", clickPos, 18, "rightKite", false);
+        tileVertices = createP2Tile("red", clickPos);
+
+        centre = centreOfTile();
+        // roation = 0;
+
+        labelEdges();
+
+        manager.allObjects.Add(this);
     }
 
 }

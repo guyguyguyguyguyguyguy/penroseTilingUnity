@@ -8,11 +8,16 @@ public class dartTile : tile
 
     public void Init(Vector3 clickPos)
     {
-        centre = clickPos - new Vector3(0, 0.5f * helperFunctionsClass.blueSides);
+        name = "dartTile";
 
-        createP2Tile("blue", clickPos, -126, "leftDart", false);
-        createP2Tile("blue", clickPos, 126, "rightDart", true);
+        tileVertices = createP2Tile("blue", clickPos);
 
+        centre = centreOfTile();
+        // roation = 0;
+
+        labelEdges();
+
+        manager.allObjects.Add(this);
     }
 
 }
