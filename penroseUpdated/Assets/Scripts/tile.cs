@@ -101,9 +101,9 @@ public class tile : MonoBehaviour
             rotatedVer2 = ver2;
             rotatedVer3 = ver3;
 
-            topTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, false, redTile.redTag);
+            topTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, redTile.redTag);
             redTile.redTag++;
-            botTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, true, redTile.redTag);
+            botTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, redTile.redTag);
             redTile.redTag++;
         }
 
@@ -125,9 +125,9 @@ public class tile : MonoBehaviour
             rotatedVer4 = helperFunctionsClass.rotatedVector(clickPos, ver3, -90f);
 
 
-            leftTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, false, blueTile.blueTag);
+            leftTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, blueTile.blueTag);
             blueTile.blueTag++;
-            rightTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, true, blueTile.blueTag);
+            rightTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, blueTile.blueTag);
             blueTile.blueTag++;
         }
 
@@ -156,9 +156,9 @@ public class tile : MonoBehaviour
             redTile botTriangle = mirror.AddComponent<redTile>();
 
 
-            topTriangle.Init(ver1, ver2, ver3, false, redTile.redTag);
+            topTriangle.Init(ver1, ver2, ver3, true, redTile.redTag);
             redTile.redTag++;
-            botTriangle.Init(ver2, ver1, ver4, true, redTile.redTag);
+            botTriangle.Init(ver2, ver1, ver4, false, redTile.redTag);
             redTile.redTag++;
         }
 
@@ -171,9 +171,9 @@ public class tile : MonoBehaviour
             blueTile rightTriangle = mirror.AddComponent<blueTile>();
 
 
-            leftTriangle.Init(ver1, ver2, ver3, false, blueTile.blueTag);
+            leftTriangle.Init(ver1, ver2, ver3, true, blueTile.blueTag);
             blueTile.blueTag++;
-            rightTriangle.Init(ver2, ver1, ver4, true, blueTile.blueTag);
+            rightTriangle.Init(ver2, ver1, ver4, false, blueTile.blueTag);
             blueTile.blueTag++;
         }
 

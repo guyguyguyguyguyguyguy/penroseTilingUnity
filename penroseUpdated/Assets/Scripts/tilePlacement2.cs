@@ -297,18 +297,157 @@ public class tilePlacement2 : MonoBehaviour
            {
                 case 1:
 
+                    ver1 = closestEdgeVec[0];
+                    ver4 = closestEdgeVec[1];
+
+                    if(previousCase == 1)
+                    {
+                        rotation = currentRotation + 144;
+                    }
+
+                    else if(previousCase == 2)
+                    {
+                        rotation = currentRotation + 36;
+                    }
+                    
+                    else if (previousCase == 3)
+                    {
+                        rotation = currentRotation + 324;
+                    }
+
+                    else if (previousCase == 4)
+                    {
+                        rotation = currentRotation - 144;
+                    }
+
+                    else
+                    {
+                        rotation = currentRotation + 180;
+                    }
+
+
+                    ver3 = helperFunctionsClass.thirdVer(ver1, rotation, helperFunctionsClass.redSides);
+                    
+                    ver2 = helperFunctionsClass.fourthVer(ver1, ver3, ver4);
+
+                    newTile.InitUser(ver1, ver2, ver3, ver4, rotation, closestEdge);
+
                 break;
 
                 case 2:
+
+                    ver2 = closestEdgeVec[0];
+                    ver3 = closestEdgeVec[1];
+
+                    if(previousCase == 1)
+                    {
+                        rotation = currentRotation + 72;
+                    }
+
+                    else if(previousCase == 2)
+                    {
+                        rotation = currentRotation -36;
+                    }
+                    
+                    else if (previousCase == 3)
+                    {
+                        rotation = currentRotation - 108;
+                    }
+
+                    else if (previousCase == 4)
+                    {
+                        rotation = currentRotation - 216;
+                    }
+
+                    else
+                    {
+                        rotation = currentRotation + 108;
+                    }
+
+
+                    ver4 = helperFunctionsClass.thirdVer(ver2, rotation, helperFunctionsClass.redSides);
+                    
+                    ver1 = helperFunctionsClass.fourthVer(ver2, ver3, ver4);
+
+                    newTile.InitUser(ver1, ver2, ver3, ver4, rotation, 3);
 
                 break;
 
                 case 3:
 
+                    ver4 = closestEdgeVec[0];
+                    ver2 = closestEdgeVec[1];
+
+                    if(previousCase == 1)
+                    {
+                        rotation = currentRotation - 144;
+                    }
+
+                    else if(previousCase == 2)
+                    {
+                        rotation = currentRotation + 108;
+                    }
+                    
+                    else if (previousCase == 3)
+                    {
+                        rotation = currentRotation + 36;
+                    }
+
+                    else if (previousCase == 4)
+                    {
+                        rotation = currentRotation - 72;
+                    }
+
+                    else
+                    {
+                        rotation = currentRotation - 108;
+                    }
+
+
+                    ver3 = helperFunctionsClass.thirdVer(ver2, rotation, helperFunctionsClass.redSides);
+                    
+                    ver1 = helperFunctionsClass.fourthVer(ver2, ver3, ver4);
+
+                    newTile.InitUser(ver1, ver2, ver3, ver4, rotation, 2);
+
                 break;
 
                 case 4:
 
+                    ver3 = closestEdgeVec[0];
+                    ver1 = closestEdgeVec[1];
+
+                    if(previousCase == 1)
+                    {
+                        rotation = currentRotation + 144;
+                    }
+
+                    else if(previousCase == 2)
+                    {
+                        rotation = currentRotation + 36;
+                    }
+                    
+                    else if (previousCase == 3)
+                    {
+                        rotation = currentRotation -36;
+                    }
+
+                    else if (previousCase == 4)
+                    {
+                        rotation = currentRotation - 144;
+                    }
+
+                    else
+                    {
+                        rotation = currentRotation - 180;
+                    }
+
+
+                    ver4 = helperFunctionsClass.thirdVer(ver1, rotation, helperFunctionsClass.redSides);
+                    
+                    ver2 = helperFunctionsClass.fourthVer(ver1, ver3, ver4);
+
+                    newTile.InitUser(ver1, ver2, ver3, ver4, rotation, 4);
                 break;
            }
        }
