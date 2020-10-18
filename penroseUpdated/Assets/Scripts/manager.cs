@@ -35,7 +35,7 @@ public class manager : MonoBehaviour
 
     void Start()
     {   
-        tileType = "P2";
+        // tileType = "P2";
 
         // dartTile firstDart = new dartTile();
         // firstDart.Init(new Vector3(1, 0));
@@ -43,7 +43,7 @@ public class manager : MonoBehaviour
         // kiteTile firstKite = new kiteTile();
         // firstKite.Init(new Vector3(0,1));
 
-        // tileType = "P3";
+        tileType = "P3";
 
         // thickRhomb firstTRhomb = new thickRhomb();
         // firstTRhomb.Init(new Vector3());
@@ -55,7 +55,13 @@ public class manager : MonoBehaviour
 
     void Update()
     {
-
+        // Debug.Log( "Number of tiles");
+        // Debug.Log(manager.allObjects.Count);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            allObjects.Clear();
+            // Need to add all new tiles created after deflation!
+        }
     }
 
 
