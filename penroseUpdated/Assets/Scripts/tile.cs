@@ -130,8 +130,10 @@ public class tile : MonoBehaviour
             rotatedVer3 = ver3;
 
             topTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, redTile.redTag);
+            topTriangle.tileRotation = -288;
             redTile.redTag++;
             botTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, redTile.redTag);
+            topTriangle.tileRotation = -288;
             redTile.redTag++;
         }
 
@@ -154,8 +156,10 @@ public class tile : MonoBehaviour
 
 
             leftTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, blueTile.blueTag);
+            leftTriangle.tileRotation = -270;
             blueTile.blueTag++;
             rightTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, blueTile.blueTag);
+            rightTriangle.tileRotation = -270;
             blueTile.blueTag++;
         }
 
@@ -166,7 +170,7 @@ public class tile : MonoBehaviour
     }
 
 
-    public Vector3[] createP3Tile(string tileType, Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4)
+    public Vector3[] createP3Tile(string tileType, Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4, float tileRotation, int tileMatchingEdge)
     {
 
         GameObject nonMirror = new GameObject();
@@ -185,8 +189,12 @@ public class tile : MonoBehaviour
 
 
             topTriangle.Init(ver1, ver2, ver3, true, redTile.redTag);
+            topTriangle.tileRotation = tileRotation;
+            topTriangle.matchingCase = tileMatchingEdge;
             redTile.redTag++;
             botTriangle.Init(ver2, ver1, ver4, false, redTile.redTag);
+            botTriangle.tileRotation = tileRotation;
+            botTriangle.matchingCase = tileMatchingEdge;
             redTile.redTag++;
         }
 
@@ -200,8 +208,12 @@ public class tile : MonoBehaviour
 
 
             leftTriangle.Init(ver1, ver2, ver3, true, blueTile.blueTag);
+            leftTriangle.tileRotation = tileRotation;
+            leftTriangle.matchingCase = tileMatchingEdge;
             blueTile.blueTag++;
             rightTriangle.Init(ver2, ver1, ver4, false, blueTile.blueTag);
+            rightTriangle.tileRotation = tileRotation;
+            rightTriangle.matchingCase = tileMatchingEdge;
             blueTile.blueTag++;
         }
 

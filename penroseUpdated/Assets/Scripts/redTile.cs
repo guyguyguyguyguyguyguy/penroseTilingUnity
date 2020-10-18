@@ -58,18 +58,43 @@ public class redTile : robTriangle
 
             if(mirrored)
             {
-                _deflate(typeof(redTile), B, P, C, true, "bottomThin", redTag);
-                redTag++;
-                _deflate(typeof(blueTile), A, C, P,true, "rightThick", blueTile.blueTag);
-                blueTile.blueTag++;
+                // Initalise new tile with the required verticies and give it a matchingCase so the user can add to pattern after deflation 
+
+                // _deflate(typeof(redTile), B, P, C, true, "bottomThin", redTag);
+                // redTag++;
+                // _deflate(typeof(blueTile), A, C, P,true, "rightThick", blueTile.blueTag);
+                // blueTile.blueTag++;
+
+                Vector3 ver4 = helperFunctionsClass.fourthVer(C, B, P);
+                Vector3 ver5 = helperFunctionsClass.fourthVer(P, C, A);
+
+                // Sort this angle and matching case
+                thickRhomb newTile1 = new thickRhomb();
+                newTile1.InitUser(A, C, P, ver5, tileRotation +180, 5);
+
+                
+                // Sort this angle and matching case
+                thinRhomb newTile2 = new thinRhomb();
+                newTile2.InitUser(B, P, C, ver4, tileRotation -36, 5);
             }
 
             else
             {
-                _deflate(typeof(redTile), P, B, C, false, "topThin", redTag);
-                redTag++;
-                _deflate(typeof(blueTile), C, A, P, false, "leftThick", blueTile.blueTag);
-                blueTile.blueTag++;
+                // _deflate(typeof(redTile), P, B, C, false, "topThin", redTag);
+                // redTag++;
+                // _deflate(typeof(blueTile), C, A, P, false, "leftThick", blueTile.blueTag);
+                // blueTile.blueTag++;
+
+                Vector3 ver4 = helperFunctionsClass.fourthVer(C, P, B);
+                Vector3 ver5 = helperFunctionsClass.fourthVer(P, A, C);
+
+                // Sort this angle and matching case
+                thickRhomb newTile1 = new thickRhomb();
+                newTile1.InitUser(A, C, ver5, P, tileRotation +180, 5);
+
+                // Sort this angle and matching case
+                thinRhomb newTile2 = new thinRhomb();
+                newTile2.InitUser(B, P, ver4, C, tileRotation -36, 5);
             }
         }
         

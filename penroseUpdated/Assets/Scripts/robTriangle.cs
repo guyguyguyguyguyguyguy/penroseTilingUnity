@@ -19,7 +19,8 @@ public class robTriangle : MonoBehaviour
 
     public int _id;
     public bool mirrored;
-    public float rotation;
+    public float tileRotation;
+    public int matchingCase;
     public string typeOfTiling;
     public Vector3 worldVertex1;
     public Vector3 worldVertex2;
@@ -53,7 +54,6 @@ public class robTriangle : MonoBehaviour
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, int tagNo)
     {   
-
         if(mirrorImage)
         {   
             Init(ver2, ver1, ver3, 1, 2, 0, mirrorImage, tagNo);
