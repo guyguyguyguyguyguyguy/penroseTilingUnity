@@ -60,7 +60,6 @@ public class manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             allObjects.Clear();
-            // Need to add all new tiles created after deflation!
         }
     }
 

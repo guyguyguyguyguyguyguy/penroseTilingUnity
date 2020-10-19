@@ -56,6 +56,15 @@ public class redTile : robTriangle
 
             Vector3 P = A + (B - A) / helperFunctionsClass.GOLDENRATIO;
 
+            float rotate1;
+            float rotate2;
+
+            int matchingCase1;
+            int matchingCase2;
+
+            thickRhomb newTile1 = new thickRhomb();  
+            thinRhomb newTile2 = new thinRhomb();
+
             if(mirrored)
             {
                 // Initalise new tile with the required verticies and give it a matchingCase so the user can add to pattern after deflation 
@@ -68,14 +77,61 @@ public class redTile : robTriangle
                 Vector3 ver4 = helperFunctionsClass.fourthVer(C, B, P);
                 Vector3 ver5 = helperFunctionsClass.fourthVer(P, C, A);
 
-                // Sort this angle and matching case
-                thickRhomb newTile1 = new thickRhomb();
-                newTile1.InitUser(A, C, P, ver5, tileRotation +180, 5);
+                switch(matchingCase)
+                {
+                    case 1:
+                        
+                        rotate1 = tileRotation - 144;
+                        rotate2 = tileRotation - 180;
 
-                
-                // Sort this angle and matching case
-                thinRhomb newTile2 = new thinRhomb();
-                newTile2.InitUser(B, P, C, ver4, tileRotation -36, 5);
+                        matchingCase1 = 1;
+                        matchingCase2 = 1;
+
+                    break;
+
+                    case 2:
+                        
+                        rotate1 = tileRotation - 72;
+                        rotate2 = tileRotation + 108;
+
+                        matchingCase1 = 2;
+                        matchingCase2 = 2;
+
+                    break;
+
+                    case 3:
+                        
+                        rotate1 = tileRotation - 144;
+                        rotate2 = tileRotation + 108;
+
+                        matchingCase1 = 3;
+                        matchingCase2 = 3;
+
+                    break;
+
+                    case 4:
+                        
+                        rotate1 = tileRotation - 72;
+                        rotate2 = tileRotation + 108;
+
+                        matchingCase1 = 4;
+                        matchingCase2 = 4;
+
+                    break;
+
+                    default:
+                        
+                        rotate1 = tileRotation + 180;
+                        rotate2 = tileRotation + 108;
+
+                        matchingCase1 = 5;
+                        matchingCase2 = 1;
+
+                    break;
+                }
+
+                newTile1.InitUser(A, C, P, ver5, rotate1, matchingCase1);
+                newTile2.InitUser(B, P, C, ver4, rotate2, matchingCase2);
             }
 
             else
@@ -88,13 +144,61 @@ public class redTile : robTriangle
                 Vector3 ver4 = helperFunctionsClass.fourthVer(C, P, B);
                 Vector3 ver5 = helperFunctionsClass.fourthVer(P, A, C);
 
-                // Sort this angle and matching case
-                thickRhomb newTile1 = new thickRhomb();
-                newTile1.InitUser(A, C, ver5, P, tileRotation +180, 5);
+                switch(matchingCase)
+                {
+                    case 1:
+                        
+                        rotate1 = tileRotation + 72;
+                        rotate2 = tileRotation - 108;
 
-                // Sort this angle and matching case
-                thinRhomb newTile2 = new thinRhomb();
-                newTile2.InitUser(B, P, ver4, C, tileRotation -36, 5);
+                        matchingCase1 = 1;
+                        matchingCase2 = 1;
+
+                    break;
+
+                    case 2:
+                        
+                        rotate1 = tileRotation + 144;
+                        rotate2 = tileRotation - 108;
+
+                        matchingCase1 = 2;
+                        matchingCase2 = 2;
+
+                    break;
+
+                    case 3:
+
+                        rotate1 = tileRotation + 72;
+                        rotate2 = tileRotation - 108;
+
+                        matchingCase1 = 3;
+                        matchingCase2 = 3;
+
+                    break;
+
+                    case 4:
+
+                        rotate1 = tileRotation + 144;
+                        rotate2 = tileRotation - 108;
+
+                        matchingCase1 = 4;
+                        matchingCase2 = 4;
+
+                    break;
+
+                    default:
+                        
+                        rotate1 = tileRotation - 36;
+                        rotate2 = tileRotation - 36;
+
+                        matchingCase1 = 3;
+                        matchingCase2 = 5;
+                        
+                    break;
+                }
+
+                newTile1.InitUser(A, C, ver5, P, rotate1, matchingCase1);
+                newTile2.InitUser(B, P, ver4, C, rotate2, matchingCase2);
             }
         }
         

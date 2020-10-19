@@ -131,9 +131,11 @@ public class tile : MonoBehaviour
 
             topTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, redTile.redTag);
             topTriangle.tileRotation = -288;
+            topTriangle.matchingCase = 5;
             redTile.redTag++;
             botTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, redTile.redTag);
             topTriangle.tileRotation = -288;
+            botTriangle.matchingCase = 5;
             redTile.redTag++;
         }
 
@@ -157,9 +159,11 @@ public class tile : MonoBehaviour
 
             leftTriangle.Init(rotatedVer1, rotatedVer2, rotatedVer3, true, blueTile.blueTag);
             leftTriangle.tileRotation = -270;
+            leftTriangle.matchingCase = 5;
             blueTile.blueTag++;
             rightTriangle.Init(rotatedVer2, rotatedVer1, rotatedVer4, false, blueTile.blueTag);
             rightTriangle.tileRotation = -270;
+            rightTriangle.matchingCase = 5;
             blueTile.blueTag++;
         }
 
