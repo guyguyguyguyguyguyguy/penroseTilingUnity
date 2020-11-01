@@ -16,6 +16,8 @@ public class tile : MonoBehaviour
     public List<Vector3[]> edges = new List<Vector3[]>();
     public int matchingCase;
 
+    public tile[] neighbours = new tile[4];
+
     public new string name;
 
     protected Vector3[] createP2Tile(string tileType, Vector3 clickPos)
