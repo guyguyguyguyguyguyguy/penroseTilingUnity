@@ -124,7 +124,21 @@ namespace helperFunctions
             return -ver1 + ver2 + ver3;
         }
 
+        
+        public static bool elementsInArray<T>(T[] array)
+        {
+            bool noOfElements = true;
 
+            foreach (var x in array)
+            {
+                if (x == null)
+                {
+                    noOfElements = false;
+                }
+            }
+
+            return noOfElements;
+        }
         
 
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System;
 using tilePlacement;
+using forcedTiles;
 
 public class manager : MonoBehaviour
 {
@@ -85,15 +86,34 @@ public class manager : MonoBehaviour
 
         if (autoDrawing & frame%20 == 0)
         {
-            tileNeightDraw = r.Next(allObjects.Count);
+            
+            int forcedTiles = 0;
+            bool noForced = false;
 
-            drawLegalNeighbour(allObjects[tileNeightDraw]);
+            foreach (tile t in allObjects)
+            {
+                if (helperFunctions.helperFunctionsClass.elementsInArray(t.neighbours))
+                {
+                    continue;
+                }
+
+                else
+                {
+                    forcedTiles += drawLegalNeighbour(t, noForced);
+                }
+            }
+
+            if (forcedTiles == 0)
+            {
+                noForced = true;
+            }
+
+            // tileNeightDraw = r.Next(allObjects.Count);
+
+            // drawLegalNeighbour(allObjects[tileNeightDraw]);
         }
 
         frame++;
-
-        Debug.Log(tileNeightDraw);
-        Debug.Log(allObjects.Count);
     }   
 
 
@@ -103,31 +123,52 @@ public class manager : MonoBehaviour
     }
 
 
-    void drawLegalNeighbour(tile t)
+    int drawLegalNeighbour(tile t, bool noForcedTiles)
     {   
-
-        int sideIndex = r.Next(sideList.Count);
-        string side = sideList[sideIndex];
         
+        List<int> edgeNoArray = new List<int>();
 
-        // some function that lists legal edges for each tile
+        for (int i=0; i < t.neighbours.Length; ++i)
+        {
+            if (t.neighbours[i] == null)
+            {
+                edgeNoArray.Add(i+1);
+            }
+        }
 
-        int edgeIndex = r.Next(t.edges.Count);
-        Vector3[] edgeVec = t.edges[edgeIndex];
-        Debug.Log(edgeIndex);
+        int edgeNo = r.Next(edgeNoArray.Count);
+        edgeNo++;
+        // edgeNo = 4;
 
-        tilePlacement2.P3TilePlacement(side, t, edgeIndex+1, edgeVec);
+        string tileToAdd = P3ForcedTiles.legalTilesAtEdge(edgeNo, t);
+
+
+        Debug.Log(tileToAdd);
+        Debug.Log(edgeNo);
+
+        if (tileToAdd == "red")
+        {
+            tilePlacement2.P3TilePlacement("left", t, edgeNo, t.edges[edgeNo-1]);
+            return 1;
+        }
+
+        else if (tileToAdd == "blue")
+        {
+            tilePlacement2.P3TilePlacement("right", t, edgeNo, t.edges[edgeNo-1]);
+            return 1;
+        }
+
+        else if (tileToAdd == "red or blue" && noForcedTiles)
+        {
+            int sideIndex = r.Next(sideList.Count);
+            string side = sideList[sideIndex];
+
+            tilePlacement2.P3TilePlacement(side, t, edgeNo, t.edges[edgeNo-1]);
+            return 1;
+        }            
+
+        return 0;
+
     }
 
-
-    // Tuple<int, Vector3[]> legalEdgesForTile(tile t)
-    // {
-    //     int edgeNo;
-    //     Vector3[] edgeVec;
-
-                
-
-
-    //     return new Tuple<int, Vector3[]> (edgeNo, edgeVec);
-    // }
 }
