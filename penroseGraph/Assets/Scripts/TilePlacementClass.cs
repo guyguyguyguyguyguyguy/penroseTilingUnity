@@ -49,11 +49,7 @@ public class TilePlacementClass : MonoBehaviour
                 {
                     if (Manager.tileType == "P3")
                     {
-                        GameObject newTile = (GameObject)Instantiate(thinRhomb);
-                        newTile.SetActive(false);
-                        ThinRhomb newTileScript = newTile.GetComponent<ThinRhomb>();
-                        newTileScript.Init(mouseClickCoor);
-                        newTile.SetActive(true);
+                        GameObject newTile = (GameObject)Instantiate(thinRhomb, new Vector3(0, 0 , 0), Quaternion.identity);
 
                     }
                     
@@ -80,11 +76,7 @@ public class TilePlacementClass : MonoBehaviour
                 {
                     if (Manager.tileType == "P3")
                     {
-                        GameObject newTile = (GameObject)Instantiate(thickRhomb);
-                        newTile.SetActive(false);
-                        ThickRhomb newTileScript = newTile.GetComponent<ThickRhomb>();
-                        newTileScript.Init(mouseClickCoor);
-                        newTile.SetActive(true);
+                        GameObject newTile = (GameObject)Instantiate(thickRhomb, new Vector3(0, 0, 0), Quaternion.identity);
                     }
                     
                     else if (Manager.tileType == "P2")
@@ -104,11 +96,7 @@ public class TilePlacementClass : MonoBehaviour
             
                 if (Manager.tileType == "P3")
                 {
-                    GameObject newTile = (GameObject)Instantiate(thinRhomb);
-                    newTile.SetActive(false);
-                    ThinRhomb newTileScript = newTile.GetComponent<ThinRhomb>();
-                    newTileScript.Init(mouseClickCoor);
-                    newTile.SetActive(true);
+                    GameObject newTile = (GameObject)Instantiate(thinRhomb, new Vector3(0, 0 , 0), Quaternion.identity);
                     
                 }
                 
@@ -125,10 +113,8 @@ public class TilePlacementClass : MonoBehaviour
 
                 if (Manager.tileType == "P3")
                 {
-                        GameObject newTile = (GameObject)Instantiate(thickRhomb);
-                        newTile.SetActive(false);
-                        ThickRhomb newTileScript = newTile.GetComponent<ThickRhomb>();
-                        newTileScript.Init(mouseClickCoor);
+                        GameObject newTile = (GameObject)Instantiate(thickRhomb, new Vector3(0, 0, 0), Quaternion.identity);
+
                 }
                 
                 else if (Manager.tileType == "P2")
@@ -156,7 +142,7 @@ public class TilePlacementClass : MonoBehaviour
     }
 
 
-    public static void P3TilePlacement(string mouseClick, Tile closestTile, int closestEdge, Vector3[] closestEdgeVec)
+    public void P3TilePlacement(string mouseClick, Tile closestTile, int closestEdge, Vector3[] closestEdgeVec)
     {
 
 
@@ -167,28 +153,79 @@ public class TilePlacementClass : MonoBehaviour
 
         else if(mouseClick == "right")
         {
-            // addThickRhomb(closestTile.name, closestEdge, closestEdgeVec, closestTile.rotation, closestTile.matchingCase, closestTile);
+            addThickRhomb(closestTile.name, closestEdge, closestTile);
         }
     }
     
 
-    static void addThinRhomb(string tileType, int closestEdge, Tile closestTile)
+    void addThinRhomb(string tileType, int closestEdge, Tile closestTile)
     {
+
+        // Still got issuesssss!!!
 
         Vector3[] verticiesToAdd = new Vector3[4]; 
         Vector3[] newVertices = new Vector3[4];
-        int rotateIndex;
-        float angle;
+        Vector3[] closestTileVers = closestTile.worldVertices;
+        float currentAngle = closestTile.rotation;
+        int rotateIndex = 5;
+        float angle = 0f;
+
+        var tileCondition = (tileType == "thinRhomb");
+
+        Debug.Log(closestEdge);
+
+
+        switch (closestEdge)
+        {  
+            case 1:
+
+                rotateIndex = tileCondition ? 2 : 2 ;
+                angle = tileCondition ? -36f : -162f;
+
+                break;
+
+            case 2:
+
+                rotateIndex = tileCondition ? 2 : 1;
+                angle = tileCondition ? 36f : -54f;
+
+                break;
+
+
+            case 3:
+
+                rotateIndex =  tileCondition ? 3 : 1;
+                angle = tileCondition ? -36f : -126f;
+
+                break;
+
+
+            case 4:
+
+                rotateIndex = tileCondition ? 3 : 3;
+                angle = tileCondition ? 36f : -18f;
+
+                break;
+        }
 
         if (tileType == "thinRhomb")
         {
-            newVertices = closestTile.tileVertices;
+            newVertices = closestTileVers;
         }
 
         else if (tileType == "thickRhomb")
         {
-            newVertices = closestTile.tileVertices;
-            newVertices = HelperFunctionsClass.ThinToThick(newVertices[0]);
+            newVertices = closestTileVers;
+
+            if (closestEdge == 2 || closestEdge == 4)
+            {
+                newVertices = HelperFunctionsClass.ThinFromThickDown(closestTileVers[rotateIndex]);
+            }
+            else
+            {
+                newVertices = HelperFunctionsClass.ThinFromThickUp(closestTileVers[rotateIndex]);
+            }
+
         }
 
         else
@@ -197,61 +234,59 @@ public class TilePlacementClass : MonoBehaviour
         }
 
 
+        GameObject newTile = (GameObject)Instantiate(thinRhomb);
+        newTile.GetComponent<ThinRhomb>().tileVertices = newVertices;
+        newTile.GetComponent<ThinRhomb>().rotation = angle;
+        newTile.transform.RotateAround(closestTileVers[rotateIndex], new Vector3(0, 0, 1), angle + currentAngle);
+    }
+
+
+    void addThickRhomb(string tileType, int closestEdge, Tile closestTile)
+    {
+
+        Vector3[] verticiesToAdd = new Vector3[4]; 
+        Vector3[] newVertices = new Vector3[4];
+        Vector3[] closestTileVers = closestTile.tileVertices;
+        float currentAngle = closestTile.rotation;
+        int rotateIndex = 5;
+        float angle = 0f;
+
+        var tileCondition = (tileType == "thinRhomb");
+
+        Debug.Log(closestEdge);
+
         switch (closestEdge)
-        {  
+        {
             case 1:
 
-                rotateIndex = 0;
-                angle = 0f;
+                rotateIndex = tileCondition ? 0 : 0 ;
+                angle = tileCondition ? 18f : 72f;
 
                 break;
 
             case 2:
 
-                rotateIndex = 0;
-                angle = 0f;
+                rotateIndex = tileCondition ? 2 : 1;
+                angle = tileCondition ? 54f : -72f;
 
                 break;
 
 
             case 3:
 
-                rotateIndex = 0;
-                angle = 0f;
+                rotateIndex =  tileCondition ? 3 : 1;
+                angle = tileCondition ? 126f : 72f;
 
                 break;
 
 
             case 4:
 
-                rotateIndex = 0;
-                angle = 0f;
+                rotateIndex = tileCondition ? 0 : 0;
+                angle = tileCondition ? 162f : -72;
 
                 break;
         }
-
-
-        for (int i = 0; i < verticiesToAdd.Length; ++i)
-        {
-            verticiesToAdd[i] = transform.RotateAround(newVertices[i],  newVerticies[rotateIndex], angle);
-        }
-
-        GameObject newTile = (GameObject)Instantiate(thickRhomb);
-        newTile.SetActive(false);
-        ThickRhomb newTileScript = newTile.GetComponent<ThickRhomb>();
-        newTileScript.Init(verticiesToAdd);
-        newTile.SetActive(true);
-
-    }
-
-
-    static void addThickRhomb(string tileType, int closestEdge, Vector3[] closestEdgeVec, float currentRotation, int previousCase, Tile closestTile)
-    {
-
-        Vector3[] verticiesToAdd = new Vector3[4]; 
-        Vector3[] newVertices = new Vector3[4];
-        int rotateIndex;
-        float angle;
 
         if (tileType == "thickRhomb")
         {
@@ -259,15 +294,31 @@ public class TilePlacementClass : MonoBehaviour
         }
 
         else if (tileType == "thinRhomb")
-        {
+        {   
             newVertices = closestTile.tileVertices;
-            newVertices = HelperFunctionsClass.ThickToThin(newVertices[3]);
+
+            if (closestEdge == 2 || closestEdge == 3)
+            {
+                newVertices = HelperFunctionsClass.ThickFromThinDown(closestTileVers[rotateIndex]);                
+            }
+            
+            else
+            {
+                newVertices = HelperFunctionsClass.ThickFromThinUp(closestTileVers[rotateIndex]);
+            }
+
         }
 
         else
         {
             throw new Exception("What is this you are trying to add to? #madlad");
         }
+
+
+        GameObject newTile = (GameObject)Instantiate(thickRhomb);
+        newTile.GetComponent<ThickRhomb>().tileVertices = newVertices;
+        newTile.GetComponent<ThickRhomb>().rotation = angle;
+        newTile.transform.RotateAround(closestTileVers[rotateIndex], new Vector3(0, 0, 1), angle + currentAngle);
         
     }
 
@@ -292,6 +343,12 @@ public class TilePlacementClass : MonoBehaviour
         float minDistToEdge = Mathf.Infinity;
         for (int i = 0; i < closest.edges.Count; ++i)
         {
+
+            // foreach(Vector3 v in closest.edges[i])
+            // {
+            //     Debug.Log(v);
+            // }
+
             float distToEdge = Vector2.Distance(HelperFunctionsClass.EdgeCentre(closest.edges[i]), mousePos);
 
             if(distToEdge < minDistToEdge)

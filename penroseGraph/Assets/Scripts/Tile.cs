@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
 
 
     public Vector3 centre;
-    public Vector3[] tileVertices;
+    public Vector3[] tileVertices = new Vector3[4];
     public float rotation;
     public float rotation2;
     public Vector3[] edge1;
@@ -19,6 +19,7 @@ public class Tile : MonoBehaviour
     public Vector3[] edge4;
     public List<Vector3[]> edges = new List<Vector3[]>();
     public int matchingCase;
+    public Vector3[] worldVertices = new Vector3[4];
     
     protected GameObject outlineL; 
     protected GameObject outlineR; 
@@ -41,7 +42,7 @@ public class Tile : MonoBehaviour
     {
         if ( Input.GetKeyDown(KeyCode.Space))
         {
-            Destroy(this);
+            // Destroy(this);
             Destroy(outlineL);
             Destroy(outlineR);
         }
@@ -79,7 +80,7 @@ public class Tile : MonoBehaviour
     {   
         Vector3 centre = new Vector3();
 
-        foreach(Vector3 x in this.tileVertices)
+        foreach(Vector3 x in this.worldVertices)
         {
             centre += x;
         }
@@ -91,10 +92,10 @@ public class Tile : MonoBehaviour
 
     protected void labelEdges()
     {
-        edge1 = new Vector3[] {tileVertices[0], tileVertices[1]};
-        edge2 = new Vector3[] {tileVertices[1], tileVertices[2]};
-        edge3 = new Vector3[] {tileVertices[2], tileVertices[3]};
-        edge4 = new Vector3[] {tileVertices[3], tileVertices[0]};
+        edge1 = new Vector3[] {worldVertices[0], worldVertices[2]};
+        edge2 = new Vector3[] {worldVertices[2], worldVertices[1]};
+        edge3 = new Vector3[] {worldVertices[1], worldVertices[3]};
+        edge4 = new Vector3[] {worldVertices[3], worldVertices[0]};
 
 
         edges.Add(edge1);

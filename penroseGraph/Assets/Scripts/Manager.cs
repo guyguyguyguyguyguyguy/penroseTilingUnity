@@ -13,6 +13,8 @@ public class Manager : MonoBehaviour
     public static GameObject blueDrawObj;
     public static GameObject redDrawObj;
     public static string tileType = "P3";
+
+    private TilePlacementClass placement = new TilePlacementClass();
     
     
     System.Random r = new System.Random( );
@@ -45,6 +47,7 @@ public class Manager : MonoBehaviour
         MeshRenderer redDRend = redDrawObj.AddComponent<MeshRenderer>();
         redDRend.material = new Material(Shader.Find("Standard"));
         redDrawObj.AddComponent<RedDrawer>();
+
     }
 
     void Start()
@@ -73,7 +76,7 @@ public class Manager : MonoBehaviour
         // Need to sort the tiles in allobjects and also the rules are wrong 
 
 
-        // Debug.Log(manager.allObjects.Count);
+        // Debug.Log(allObjects.Count);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -156,13 +159,13 @@ public class Manager : MonoBehaviour
 
         if (tileToAdd == "red")
         {
-            TilePlacementClass.P3TilePlacement("left", t, edgeNo, t.edges[edgeNo-1]);
+            placement.P3TilePlacement("left", t, edgeNo, t.edges[edgeNo-1]);
             return 1;
         }
 
         else if (tileToAdd == "blue")
         {
-            TilePlacementClass.P3TilePlacement("right", t, edgeNo, t.edges[edgeNo-1]);
+            placement.P3TilePlacement("right", t, edgeNo, t.edges[edgeNo-1]);
             return 1;
         }
 
@@ -174,7 +177,7 @@ public class Manager : MonoBehaviour
             int sideIndex = r.Next(sideList.Count);
             string side = sideList[sideIndex];
 
-            TilePlacementClass.P3TilePlacement(side, t, edgeNo, t.edges[edgeNo-1]);
+            placement.P3TilePlacement(side, t, edgeNo, t.edges[edgeNo-1]);
             noForced = false;
             return 1;
         } 

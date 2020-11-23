@@ -51,20 +51,32 @@ namespace HelperFunctions
         }
 
 
-        public static Vector3[] ThinToThick(Vector3 pivotVertex)
+        public static Vector3[] ThinFromThickUp(Vector3 pivotVertex)
         {
             Vector3[] translatedVerticies = new Vector3[4];
 
             translatedVerticies[3] = pivotVertex;
-            translatedVerticies[0] = pivotVertex + new Vector3( -05f * redBase, redHeight );
-            translatedVerticies[1] = pivotVertex + new Vector3( 05f * redBase, redHeight );
+            translatedVerticies[0] = pivotVertex + new Vector3( -0.5f * redBase, redHeight );
+            translatedVerticies[1] = pivotVertex + new Vector3( 0.5f * redBase, redHeight );
             translatedVerticies[2] = pivotVertex + new Vector3( 0, 2f * redHeight );
 
             return translatedVerticies;
         }
 
+        public static Vector3[] ThinFromThickDown(Vector3 pivotVertex)
+        {
+            Vector3[] translatedVerticies = new Vector3[4];
 
-        public static Vector3[] ThickToThin(Vector3 pivotVertex)
+            translatedVerticies[2] = pivotVertex;
+            translatedVerticies[0] = pivotVertex + new Vector3( -0.5f * redBase, - redHeight );
+            translatedVerticies[1] = pivotVertex + new Vector3( 0.5f * redBase, - redHeight );
+            translatedVerticies[3] = pivotVertex + new Vector3( 0, - 2f * redHeight );
+
+            return translatedVerticies;
+        }
+
+
+        public static Vector3[] ThickFromThinUp(Vector3 pivotVertex)
         {
             Vector3[] translatedVerticies = new Vector3[4];
 
@@ -75,6 +87,45 @@ namespace HelperFunctions
 
             return translatedVerticies;
         }
+
+        
+        public static Vector3[] ThickFromThinDown(Vector3 pivotVertex)
+        {
+            Vector3[] translatedVerticies = new Vector3[4];
+
+            translatedVerticies[1] = pivotVertex;
+            translatedVerticies[0] = pivotVertex + new Vector3( 0, -blueBase );
+            translatedVerticies[2] = pivotVertex + new Vector3( -blueHeight, - 0.5f * blueBase );
+            translatedVerticies[3] = pivotVertex + new Vector3( blueHeight, - 0.5f * blueBase );
+            
+            return translatedVerticies;
+        }
+
+
+        //         public static Vector3[] ThinFromThick(Vector3 centre)
+        // {
+        //     Vector3[] translatedVerticies = new Vector3[4];
+
+        //     translatedVerticies[0] = centre - new Vector3( 0.5f * redBase, 0);
+        //     translatedVerticies[1] = centre + new Vector3( 0.5f * redBase, 0 );
+        //     translatedVerticies[2] = centre + new Vector3( 0, redHeight );
+        //     translatedVerticies[3] = centre - new Vector3( 0, redHeight );
+
+        //     return translatedVerticies;
+        // }
+
+
+        // public static Vector3[] ThickFromThin(Vector3 centre)
+        // {
+        //     Vector3[] translatedVerticies = new Vector3[4];
+
+        //     translatedVerticies[0] = centre - new Vector3( 0, 0.5f * blueBase);
+        //     translatedVerticies[1] = centre + new Vector3( 0, 0.5f * blueBase );
+        //     translatedVerticies[2] = centre - new Vector3( blueHeight, 0 );
+        //     translatedVerticies[3] = centre + new Vector3( blueHeight, 0 );
+
+        //     return translatedVerticies;
+        // }
 
 
         public static void AddToArray<T>(ref T[] vec, T[] addingVec)
