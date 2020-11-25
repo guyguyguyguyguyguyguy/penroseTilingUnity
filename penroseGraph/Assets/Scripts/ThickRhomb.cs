@@ -7,6 +7,7 @@ public class ThickRhomb : Tile
 {
     void Start()
     {
+
         for (int i = 0; i < 4; ++i)
         {
             worldVertices[i] = transform.TransformPoint(tileVertices[i]);
@@ -35,10 +36,10 @@ public class ThickRhomb : Tile
     {
         name = "thickRhomb";
 
-        Vector3 ver1 = clickPos - new Vector3 ( (0.5f * HelperFunctionsClass.redBase), 0 ); 
-        Vector3 ver2 = clickPos + new Vector3 ( (0.5f * HelperFunctionsClass.redBase), 0 );
-        Vector3 ver3 = clickPos + new Vector3 ( 0, HelperFunctionsClass.redHeight);
-        Vector3 ver4 = clickPos - new Vector3 ( 0, HelperFunctionsClass.redHeight );
+        Vector3 ver1 = clickPos - new Vector3 ( 0, 0.5f * HelperFunctionsClass.blueBase ); 
+        Vector3 ver2 = clickPos + new Vector3 ( 0, 0.5f * HelperFunctionsClass.blueBase );
+        Vector3 ver3 = clickPos - new Vector3 ( HelperFunctionsClass.blueHeight, 0 );
+        Vector3 ver4 = clickPos + new Vector3 ( HelperFunctionsClass.blueHeight, 0 );
 
 
         tileVertices = new Vector3[] {ver1, ver2, ver3, ver4};

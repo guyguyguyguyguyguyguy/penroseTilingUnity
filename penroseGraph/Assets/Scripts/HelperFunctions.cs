@@ -102,6 +102,19 @@ namespace HelperFunctions
         }
 
 
+        public static Vector3[] FlipThin(Vector3[] oldVers)
+        { 
+            Vector3[] newVers = new Vector3[4];
+
+            newVers[0] = oldVers[1];
+            newVers[1] = oldVers[0];
+            newVers[2] = oldVers[3];
+            newVers[3] = oldVers[2];
+
+            return newVers;
+        }
+
+
         //         public static Vector3[] ThinFromThick(Vector3 centre)
         // {
         //     Vector3[] translatedVerticies = new Vector3[4];
