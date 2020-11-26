@@ -12,6 +12,10 @@ public class BlueTile : RobTriangle
 
     public override void deflate()
     {   
+
+        // Difficulty is to not have doublings from two adjacent tiles
+
+
         // string typeOfTiling = Regex.Match(name, @"([A-Z]\w+)").Groups[0].Value;
         Vector3 C = vertex2 * HelperFunctionsClass.GOLDENRATIO;
         Vector3 B = vertex1 * HelperFunctionsClass.GOLDENRATIO; 
@@ -30,22 +34,22 @@ public class BlueTile : RobTriangle
 
             if(mirrored)
             {
-                // _deflate(typeof(BlueTile), R, B, Q, false, "leftThick", blueTag);
-                // blueTag++;
-                // _deflate(typeof(RedTile), Q, A, R, false, "topThin", RedTile.redTag);
-                // RedTile.redTag++;
-                // _deflate(typeof(BlueTile), A, C, R, true, "rightThick", blueTag);
-                // blueTag++;
+                _deflate("thickRhomb", R, B, Q, false, "leftThick", blueTag);
+                blueTag++;
+                _deflate("ThinRhomb", Q, A, R, false, "topThin", RedTile.redTag);
+                RedTile.redTag++;
+                _deflate("thickRhomb", A, C, R, true, "rightThick", blueTag);
+                blueTag++;
             }
 
             else
             {
-                // _deflate(typeof(BlueTile), B, R, Q, true, "rightThick", blueTag);
-                // blueTag++;
-                // _deflate(typeof(RedTile), A, Q, R, true, "bottomThin", RedTile.redTag);
-                // RedTile.redTag++;
-                // _deflate(typeof(BlueTile), C, A, R, false, "leftThick", blueTag);
-                // blueTag++;
+                _deflate("thickRhomb", B, R, Q, true, "rightThick", blueTag);
+                blueTag++;
+                _deflate("thinRhomb", A, Q, R, true, "bottomThin", RedTile.redTag);
+                RedTile.redTag++;
+                _deflate("thickRhomb", C, A, R, false, "leftThick", blueTag);
+                blueTag++;
             }
         }
 
@@ -61,17 +65,17 @@ public class BlueTile : RobTriangle
 
             if(mirrored)
             {
-                _deflate(typeof(RedTile), A, P, B, false, "rightKite", RedTile.redTag);
+                _deflate("thinRhomb", A, P, B, false, "rightKite", RedTile.redTag);
                 RedTile.redTag++;
-                _deflate(typeof(BlueTile), A, C, P, true, "rightDart", blueTag);
+                _deflate("thickRhomb", A, C, P, true, "rightDart", blueTag);
                 blueTag++;
             }
             
             else
             {
-                _deflate(typeof(RedTile), P, A, B, true, "leftKite", RedTile.redTag);
+                _deflate("thinRhomb", P, A, B, true, "leftKite", RedTile.redTag);
                 RedTile.redTag++;
-                _deflate(typeof(BlueTile), C, A, P, false, "leftDart", blueTag);
+                _deflate("thickRhomb", C, A, P, false, "leftDart", blueTag);
                 blueTag++;
             }
         }

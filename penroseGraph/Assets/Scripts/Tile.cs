@@ -23,6 +23,9 @@ public class Tile : MonoBehaviour
     
     protected GameObject outlineL; 
     protected GameObject outlineR; 
+
+    protected RobTriangle mirrorTri;
+    protected RobTriangle nonMirrorTri;
     
 
     //Add collider
@@ -42,36 +45,49 @@ public class Tile : MonoBehaviour
     {
         if ( Input.GetKeyDown(KeyCode.Space))
         {
-            // Destroy(this);
+            Destroy(this);
+
+            Deflate();
+
             Destroy(outlineL);
             Destroy(outlineR);
         }
     }
 
 
-    public void createP3Tile(string tileType, Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4)
+    public RobTriangle[] createP3Tile(string tileType, Vector3 ver1, Vector3 ver2, Vector3 ver3, Vector3 ver4, float rotation)
     {
         if(tileType == "red")
         {
             RedTile topTile = new RedTile();
             topTile.Init(ver1, ver2, ver3, false, RedTile.redTag);
+            topTile.tileRotation = rotation;
             RedTile.redTag++;
             
             RedTile bottomTile = new RedTile();
             bottomTile.Init(ver2, ver1, ver4, true, RedTile.redTag);
+            bottomTile.tileRotation = rotation;
             RedTile.redTag++;
+
+            return new RobTriangle[] { topTile, bottomTile };
         }
 
         else if(tileType == "blue")
         {   
             BlueTile leftTile = new BlueTile();
             leftTile.Init(ver1, ver2, ver3, true, BlueTile.blueTag);
+            leftTile.tileRotation = rotation;
             BlueTile.blueTag++;
 
             BlueTile rightTile = new BlueTile();
             rightTile.Init(ver2, ver1, ver4, false, BlueTile.blueTag);
+            rightTile.tileRotation = rotation;
             BlueTile.blueTag++;
+            
+            return new RobTriangle[] { rightTile, leftTile };
         }
+
+        return new RobTriangle[] { };
 
     }
 
@@ -87,6 +103,13 @@ public class Tile : MonoBehaviour
 
         return centre/4;
 
+    }
+
+    
+    protected void Deflate()
+    {
+        mirrorTri.deflate();
+        nonMirrorTri.deflate();
     }
 
 

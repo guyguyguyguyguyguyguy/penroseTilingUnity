@@ -13,7 +13,11 @@ public class ThinRhomb : Tile
             worldVertices[i] = transform.TransformPoint(tileVertices[i]);
         }
 
-        createP3Tile("red", worldVertices[0], worldVertices[1], worldVertices[2], worldVertices[3]);
+        RobTriangle[] tris = createP3Tile("red", worldVertices[0], worldVertices[1], worldVertices[2], worldVertices[3], rotation);
+
+
+        nonMirrorTri = tris[0];
+        mirrorTri = tris[1];
 
         centre = centreOfTile();
 
@@ -23,12 +27,6 @@ public class ThinRhomb : Tile
         FindNeighbours();
 
         Manager.allObjects.Add(this);
-
-    }
-
-
-    void Update()
-    {
 
     }
 

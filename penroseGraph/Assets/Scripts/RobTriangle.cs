@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HelperFunctions;
+
 
 public class RobTriangle
 {
@@ -23,6 +25,13 @@ public class RobTriangle
     public Vector3[] vertices;
     public int[] triangles;
 
+    public TilePlacementClass TP;
+
+
+    public RobTriangle()
+    {
+        TP = GameObject.Find("TilePlacement").GetComponent<TilePlacementClass>();
+    }
 
     public void Init(Vector3 ver1, Vector3 ver2, Vector3 ver3, bool mirrorImage, int tagNo)
     {   
@@ -67,18 +76,17 @@ public class RobTriangle
     }
 
 
-    public void _deflate(System.Type typeTile, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage, string name, int tagNo)
+    public void _deflate(string typeTile, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage, string name, int tagNo)
     {  
         this.deflationStep +=1;
 
-        GameObject newTileObj = new GameObject();
-        newTileObj.SetActive(false);
-        newTileObj.name = name;
-        // RobTriangle newTile = (RobTriangle)newTileObj.AddComponent(typeTile); 
+        Vector3 v4 = HelperFunctionsClass.FourthVer(v1, v2, v3);
 
-        // newTile.Init(v1, v2, v3, mirrorImage, tagNo);
+        Vector3[] vers = new Vector3[] { v1, v2, v3, v4 };
 
-        newTileObj.SetActive(true);
+        // Fix this, because if i instantiate, then it doesn't have access to the prefabs
+
+        TP.InstantiateTile(typeTile, vers, tileRotation);
     }
 
 

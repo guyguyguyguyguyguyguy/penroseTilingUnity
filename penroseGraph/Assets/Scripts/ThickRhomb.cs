@@ -13,7 +13,12 @@ public class ThickRhomb : Tile
             worldVertices[i] = transform.TransformPoint(tileVertices[i]);
         }
 
-        createP3Tile("blue", worldVertices[0], worldVertices[1], worldVertices[2], worldVertices[3]);
+        RobTriangle[] tris = createP3Tile("blue", worldVertices[0], worldVertices[1], worldVertices[2], worldVertices[3], rotation);
+
+        nonMirrorTri = tris[0];
+        mirrorTri = tris[1];
+
+        Debug.Log(tris[0]);
 
         centre = centreOfTile();
 
@@ -26,11 +31,6 @@ public class ThickRhomb : Tile
 
     }
 
-
-    void Update()
-    {
-
-    }
 
     public void Init(Vector3 clickPos)
     {

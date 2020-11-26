@@ -378,4 +378,32 @@ public class TilePlacementClass : MonoBehaviour
         
         return new Tuple< Tile, float, int, Vector3[]>(closest, minDist, closestEdge, closestEdgeVec);
     }  
+
+
+    public void InstantiateTile(string tileType, Vector3[] verticies, float tileRotation)
+    {
+
+        // Issues here, please fix
+
+        if (tileType == "thinRhomb")
+        {
+            Debug.Log("i am here");
+
+            GameObject newTile = (GameObject)Instantiate(thinRhomb);
+            newTile.GetComponent<ThinRhomb>().tileVertices = verticies;
+            newTile.GetComponent<ThinRhomb>().rotation = tileRotation;
+
+            Debug.Log("I am ere");
+
+        }
+
+        else if (tileType == "thickRhomb")
+        {
+            GameObject newTile = (GameObject)Instantiate(thickRhomb);
+            newTile.GetComponent<ThickRhomb>().tileVertices = verticies;
+            newTile.GetComponent<ThickRhomb>().rotation = tileRotation;
+
+            Debug.Log("I am eerre");
+        }
+    }
 }
