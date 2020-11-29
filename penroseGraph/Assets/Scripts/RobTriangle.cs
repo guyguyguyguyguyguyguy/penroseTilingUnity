@@ -19,9 +19,6 @@ public class RobTriangle
     public float tileRotation;
     public int matchingCase;
     public string typeOfTiling;
-    public Vector3 vertex1;
-    public Vector3 vertex2;
-    public Vector3 vertex3;
     public Vector3[] vertices;
     public int[] triangles;
 
@@ -76,17 +73,17 @@ public class RobTriangle
     }
 
 
-    public void _deflate(string typeTile, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage, string name, int tagNo)
+    public void _deflate(string parent, Vector3 v1, Vector3 v2, Vector3 v3, bool mirrorImage, string name, int tagNo, float rotation)
     {  
+        Vector3[] vers = new Vector3[4];
+
         this.deflationStep +=1;
+        Vector3 v4 = HelperFunctionsClass.FourthVer(v3, v2, v1);
 
-        Vector3 v4 = HelperFunctionsClass.FourthVer(v1, v2, v3);
+        vers = new Vector3[] { v1, v2, v3, v4 };
 
-        Vector3[] vers = new Vector3[] { v1, v2, v3, v4 };
 
-        // Fix this, because if i instantiate, then it doesn't have access to the prefabs
-
-        TP.InstantiateTile(typeTile, vers, tileRotation);
+        TP.InstantiateTile(name, vers, rotation, mirrorImage);
     }
 
 

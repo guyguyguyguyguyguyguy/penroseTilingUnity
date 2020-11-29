@@ -12,38 +12,28 @@ public class RedTile : RobTriangle
 
     public override void deflate()
     {   
-        Vector3 A = vertex3 * HelperFunctionsClass.GOLDENRATIO;
-        Vector3 B = vertex1 * HelperFunctionsClass.GOLDENRATIO; 
-        Vector3 C = vertex2 * HelperFunctionsClass.GOLDENRATIO;
+        Vector3 A = vertices[2] * HelperFunctionsClass.GOLDENRATIO;
+        Vector3 B = vertices[0] * HelperFunctionsClass.GOLDENRATIO; 
+        Vector3 C = vertices[1] * HelperFunctionsClass.GOLDENRATIO;
 
 
         if(typeOfTiling == "P3")
         {
-            // // for tests
-            // A += new Vector3(1, 0);
-            // B += new Vector3(1, 0);
-            // C += new Vector3(1, 0);
 
             Vector3 P = A + (B - A) / HelperFunctionsClass.GOLDENRATIO;
 
             if(mirrored)
             {
-                // Initalise new tile with the required verticies and give it a matchingCase so the user can add to pattern after deflation 
-
-                _deflate("thinRhomb", B, P, C, true, "bottomThin", redTag);
-                redTag++;
-                _deflate("thickRhomb", A, C, P,true, "rightThick", BlueTile.blueTag);
-                BlueTile.blueTag++;
+                _deflate("thinRhomb", B, P, C, true, "thinRhomb", redTag, tileRotation - 72f);
+                _deflate("thinRhomb", A, C, P,true, "thickRhomb", BlueTile.blueTag, tileRotation - 18f);
             }
 
   
 
             else
             {
-                _deflate("thinRhomb", P, B, C, false, "topThin", redTag);
-                redTag++;
-                _deflate("thickRhomb", C, A, P, false, "leftThick", BlueTile.blueTag);
-                BlueTile.blueTag++;
+                _deflate("thinRhomb", P, B, C, false, "thinRhomb", redTag, tileRotation + 72f);
+                _deflate("thinRhomb", C, A, P, false, "thickRhomb", BlueTile.blueTag, tileRotation +198f);
             }
 
   

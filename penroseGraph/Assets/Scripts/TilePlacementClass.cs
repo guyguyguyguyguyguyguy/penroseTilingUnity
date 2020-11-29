@@ -380,30 +380,55 @@ public class TilePlacementClass : MonoBehaviour
     }  
 
 
-    public void InstantiateTile(string tileType, Vector3[] verticies, float tileRotation)
+    public void InstantiateTile(string tileType, Vector3[] verticies, float tileRotation, bool mirrorImage)
     {
+        
+        GameObject newTile;
+        Tile tileScript;
 
-        // Issues here, please fix
+
+        float modifiedRotation = tileRotation + 180f;
 
         if (tileType == "thinRhomb")
         {
-            Debug.Log("i am here");
-
-            GameObject newTile = (GameObject)Instantiate(thinRhomb);
-            newTile.GetComponent<ThinRhomb>().tileVertices = verticies;
-            newTile.GetComponent<ThinRhomb>().rotation = tileRotation;
-
-            Debug.Log("I am ere");
-
+            newTile = (GameObject)Instantiate(thinRhomb);
+            tileScript = newTile.GetComponent<ThinRhomb>();
         }
 
-        else if (tileType == "thickRhomb")
+        else
         {
-            GameObject newTile = (GameObject)Instantiate(thickRhomb);
-            newTile.GetComponent<ThickRhomb>().tileVertices = verticies;
-            newTile.GetComponent<ThickRhomb>().rotation = tileRotation;
-
-            Debug.Log("I am eerre");
+            newTile = (GameObject)Instantiate(thickRhomb);
+            tileScript = newTile.GetComponent<ThickRhomb>();
         }
+
+        tileScript.tileVertices = verticies;
+        tileScript.rotation = modifiedRotation;
+
+        if(!mirrorImage)
+        {
+            Vector3 centre = centreOfTile(verticies);
+            newTile.transform.RotateAround(centre, new Vector3 (0, 0, 1), 180f);
+        }
+
+    }
+
+
+    public Vector3 centreOfTile(Vector3[] vers)
+    {
+        Vector3[] worldVertices = new Vector3[4];
+        Vector3 centre = new Vector3();
+
+        for (int i = 0; i < 4; ++i)
+        {
+            worldVertices[i] = transform.TransformPoint(vers[i]);
+        }
+
+
+        foreach(Vector3 x in worldVertices)
+        {
+            centre += x;
+        }
+
+        return centre/4;
     }
 }

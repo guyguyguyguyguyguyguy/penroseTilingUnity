@@ -19,11 +19,11 @@ public class Movement : MonoBehaviour
         Camera.main.orthographicSize -= Input.mouseScrollDelta.y * 0.23f;
         speed -= Input.mouseScrollDelta.y * 0.23f;
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Camera.main.orthographicSize *= HelperFunctionsClass.GOLDENRATIO;
-            speed *= HelperFunctionsClass.GOLDENRATIO;
-        }
+        // if(Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Camera.main.orthographicSize *= HelperFunctionsClass.GOLDENRATIO;
+        //     speed *= HelperFunctionsClass.GOLDENRATIO;
+        // }
 
         if(Input.GetKey(KeyCode.RightArrow))
         {

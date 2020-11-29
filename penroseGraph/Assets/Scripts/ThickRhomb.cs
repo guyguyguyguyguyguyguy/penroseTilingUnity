@@ -18,8 +18,6 @@ public class ThickRhomb : Tile
         nonMirrorTri = tris[0];
         mirrorTri = tris[1];
 
-        Debug.Log(tris[0]);
-
         centre = centreOfTile();
 
         _drawLine();

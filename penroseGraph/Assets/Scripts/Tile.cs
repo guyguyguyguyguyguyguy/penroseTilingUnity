@@ -60,12 +60,12 @@ public class Tile : MonoBehaviour
         if(tileType == "red")
         {
             RedTile topTile = new RedTile();
-            topTile.Init(ver1, ver2, ver3, false, RedTile.redTag);
+            topTile.Init(ver1, ver2, ver3, true, RedTile.redTag);
             topTile.tileRotation = rotation;
             RedTile.redTag++;
             
             RedTile bottomTile = new RedTile();
-            bottomTile.Init(ver2, ver1, ver4, true, RedTile.redTag);
+            bottomTile.Init(ver2, ver1, ver4, false, RedTile.redTag);
             bottomTile.tileRotation = rotation;
             RedTile.redTag++;
 
@@ -108,6 +108,9 @@ public class Tile : MonoBehaviour
     
     protected void Deflate()
     {
+        RedTile.redTag = 0;
+        BlueTile.blueTag = 0;
+
         mirrorTri.deflate();
         nonMirrorTri.deflate();
     }
