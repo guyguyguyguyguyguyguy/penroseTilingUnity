@@ -45,9 +45,12 @@ public class Tile : MonoBehaviour
     {
         if ( Input.GetKeyDown(KeyCode.Space))
         {
-            Destroy(this);
 
             Deflate();
+
+            // Todo: this does not remove tile from scene
+            // DestroyImmediate(transform.parent.gameObject);
+            DestroyImmediate(gameObject);
 
             Destroy(outlineL);
             Destroy(outlineR);

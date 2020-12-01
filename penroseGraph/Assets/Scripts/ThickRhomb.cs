@@ -5,13 +5,26 @@ using HelperFunctions;
 
 public class ThickRhomb : Tile
 {
+
     void Start()
     {
 
+        // Collider does not work for placed tiles???? whyyyy
+
+
+        Vector2[] colPoints = GetComponent<PolygonCollider2D>().points;
+
         for (int i = 0; i < 4; ++i)
         {
-            worldVertices[i] = transform.TransformPoint(tileVertices[i]);
+            Vector3 worldVer = transform.TransformPoint(tileVertices[i]);
+            worldVertices[i] = worldVer;
+
+            Vector2 colliderPoint = worldVer;
+            colPoints.SetValue(colliderPoint, i);
         }
+
+        (colPoints[1], colPoints[2]) = (colPoints[2], colPoints[1]);
+        GetComponent<PolygonCollider2D>().points = colPoints;
 
         RobTriangle[] tris = createP3Tile("blue", worldVertices[0], worldVertices[1], worldVertices[2], worldVertices[3], rotation);
 
